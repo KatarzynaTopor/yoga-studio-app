@@ -1,0 +1,23 @@
+# Ignore build artifacts
+target/
+out/
+build/
+
+# Ignore IDE and OS files
+*.log
+*.swp
+*.swo
+*.bak
+*.tmp
+.DS_Store
+*.class
+*.jar
+
+# Ignore Git and Node modules
+.git/
+.gitignore
+node_modules/
+npm-debug.log
+
+# Ignore dependencies
+.m2/
