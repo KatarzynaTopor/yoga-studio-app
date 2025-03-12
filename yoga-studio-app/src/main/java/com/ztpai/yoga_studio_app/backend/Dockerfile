@@ -1,32 +1,32 @@
-# Use official Maven image with JDK 17
+# Faza budowania - używamy obrazu Maven z JDK 17
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Set working directory
+# Ustawienie katalogu roboczego
 WORKDIR /app
 
-# Copy pom.xml and dependencies first (for efficient caching)
+# Kopiowanie tylko `pom.xml` (umożliwia wykorzystanie cache Dockera)
 COPY pom.xml .
 
-# Download dependencies
-RUN mvn dependency:go-offline -B
+# Pobieranie zależności, aby przyspieszyć budowanie
+RUN mvn dependency:go-offline -B || mvn dependency:resolve -B
 
-# Copy source code
+# Kopiowanie całej reszty kodu źródłowego
 COPY src ./src
 
-# Build the application
-RUN mvn clean package -DskipTests
+# Kompilacja aplikacji (z pominięciem testów, wielowątkowość)
+RUN mvn clean package -DskipTests -T 4
 
-# Use lightweight OpenJDK image for final runtime
-FROM openjdk:22-jdk-slim
+# Faza uruchomienia - używamy lżejszego obrazu OpenJDK 17
+FROM openjdk:17-jdk-slim
 
-# Set working directory
+# Ustawienie katalogu roboczego
 WORKDIR /app
 
-# Copy built JAR from the previous stage
+# Kopiowanie skompilowanego pliku JAR z poprzedniej fazy
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose application port
+# Otwieramy port 8080
 EXPOSE 8080
 
-# Run the application
+# Uruchamiamy aplikację
 ENTRYPOINT ["java", "-jar", "app.jar"]

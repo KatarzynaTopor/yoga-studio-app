@@ -2,6 +2,8 @@
 target/
 out/
 build/
+*.class
+*.jar
 
 # Ignore IDE and OS files
 *.log
@@ -10,14 +12,12 @@ build/
 *.bak
 *.tmp
 .DS_Store
-*.class
-*.jar
+.idea/
+.vscode/
+*.iml
 
 # Ignore Git and Node modules
 .git/
 .gitignore
 node_modules/
 npm-debug.log
-
-# Ignore dependencies
-.m2/

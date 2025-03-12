@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: src/main/java/com/ztpai/yoga_studio_app/backend/Dockerfile  # Explicit path to Dockerfile
+      dockerfile: src/main/java/com/ztpai/yoga_studio_app/backend/Dockerfile
     container_name: backend-container
     ports:
       - "8080:8080"
