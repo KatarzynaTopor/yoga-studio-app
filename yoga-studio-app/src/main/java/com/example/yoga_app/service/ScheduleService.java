@@ -20,8 +20,5 @@ public class ScheduleService {
         return scheduleRepository.findAll();
     }
 
-    public Schedule getScheduleById(UUID id) {
-        return scheduleRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found"));
-    }
+
 }

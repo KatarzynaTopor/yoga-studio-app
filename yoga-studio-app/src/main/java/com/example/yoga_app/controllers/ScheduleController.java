@@ -22,9 +22,5 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.getAllSchedules());
     }
 
-    // ✅ Get schedule details by ID (Public)
-    @GetMapping("/{id}")
-    public ResponseEntity<Schedule> getScheduleById(@PathVariable UUID id) {
-        return ResponseEntity.ok(scheduleService.getScheduleById(id));
-    }
+
 }
