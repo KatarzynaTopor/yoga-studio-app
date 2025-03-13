@@ -1,33 +1,23 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Ignore compiled Java files & Maven artifacts
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.idea/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/mvnw
+backend/mvnw.cmd
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Ignore Node.js (Frontend)
+frontend/node_modules/
+frontend/.next/
+frontend/build/
+frontend/.idea/
+frontend/.env.local
+frontend/.eslintcache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+# Ignore Docker & IntelliJ settings
+*.log
+*.DS_Store
 .vscode/
+.env

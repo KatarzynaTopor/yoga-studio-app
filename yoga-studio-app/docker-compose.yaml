@@ -1,7 +1,7 @@
 services:
   backend:
     build:
-      context: .
+      context: ./BACKEND
       dockerfile: Dockerfile
     container_name: yoga-backend
     ports:
