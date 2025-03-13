@@ -1,27 +1,41 @@
 package com.example.yoga_app.controllers;
 
 import com.example.yoga_app.dto.UserProfileDto;
+import com.example.yoga_app.dto.UpdateUserRequestDto;
 import com.example.yoga_app.mapper.UserMapper;
 import com.example.yoga_app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class UserProfileController {
 
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @GetMapping("/me")
-    public ResponseEntity<UserProfileDto> getUserProfile(final Authentication authentication) {
-        final var user = userService.getUserByUsername(authentication.getName());
-
+    @GetMapping("/user")
+    public ResponseEntity<UserProfileDto> getUserProfile(Authentication authentication) {
+        var user = userService.getUserByUsername(authentication.getName());
         return ResponseEntity.ok(userMapper.toUserProfileDto(user));
+    }
+
+    @PutMapping("/update_user")
+    public ResponseEntity<UserProfileDto> updateUserProfile(
+            Authentication authentication,
+            @Valid @RequestBody UpdateUserRequestDto updateUserRequestDto) {
+
+        var updatedUser = userService.updateUser(authentication.getName(), updateUserRequestDto);
+        return ResponseEntity.ok(userMapper.toUserProfileDto(updatedUser));
+    }
+
+    @DeleteMapping("/delete_user")
+    public ResponseEntity<Void> deleteUserAccount(Authentication authentication) {
+        userService.deleteUser(authentication.getName());
+        return ResponseEntity.noContent().build();
     }
 }
