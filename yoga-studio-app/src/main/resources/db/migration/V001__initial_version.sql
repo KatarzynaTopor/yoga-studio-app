@@ -9,3 +9,13 @@ CREATE TABLE users (
 
 CREATE INDEX idx_users_username ON users(username);
 CREATE INDEX idx_users_email ON users(email);
+
+
+CREATE TABLE schedule (
+    id UUID PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    instructor VARCHAR(50) NOT NULL,
+    schedule_time TIMESTAMP NOT NULL,
+    capacity INT NOT NULL
+);

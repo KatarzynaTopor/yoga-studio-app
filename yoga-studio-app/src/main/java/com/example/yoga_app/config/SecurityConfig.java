@@ -1,6 +1,7 @@
 package com.example.yoga_app.config;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,22 +19,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .oauth2ResourceServer(server -> server
-                        .jwt(Customizer.withDefaults())
-                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
-                )
-                .build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            return http
+                    .csrf(AbstractHttpConfigurer::disable)
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers("/api/auth/**").permitAll()
+                            .requestMatchers("/api/schedule/**").permitAll()
+                            .anyRequest().authenticated()
+                    )
+                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .oauth2ResourceServer(server -> server.jwt(Customizer.withDefaults()))
+                    .build();
+        }
+
+
 
     @Bean
     public AuthenticationManager authenticationManager(final AuthenticationConfiguration authenticationConfiguration) throws Exception {
