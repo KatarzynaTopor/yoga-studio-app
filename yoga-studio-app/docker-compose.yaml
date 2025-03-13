@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yoga-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: secret
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+      JWT_PRIVATE_KEY: classpath:jwt/app.key
+      JWT_PUBLIC_KEY: classpath:jwt/app.pub
+    depends_on:
+      - postgres
+    volumes:
+      - ./target:/app/target  # Mount target folder to ensure access
+    entrypoint: ["java", "-jar", "/app/app.jar"]  # ✅ Fix path to match Dockerfile
+
+  postgres:
+    image: 'postgres:17'  # Avoid version mismatch!
+    container_name: postgres-container
+    restart: always
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
