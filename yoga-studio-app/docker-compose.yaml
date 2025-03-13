@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   backend:
     build:
@@ -16,13 +18,19 @@ services:
       JWT_PRIVATE_KEY: classpath:jwt/app.key
       JWT_PUBLIC_KEY: classpath:jwt/app.pub
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - ./target:/app/target  # Mount target folder to ensure access
-    entrypoint: ["java", "-jar", "/app/app.jar"]  # ✅ Fix path to match Dockerfile
+    entrypoint: ["java", "-jar", "/app/app.jar"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   postgres:
-    image: 'postgres:17'  # Avoid version mismatch!
+    image: 'postgres:17'
     container_name: postgres-container
     restart: always
     environment:
@@ -33,6 +41,32 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: yoga-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=development
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   postgres-data:
