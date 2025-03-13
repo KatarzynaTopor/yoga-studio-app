@@ -1,22 +1,14 @@
-# Use Node.js as the base image
-FROM node:18-alpine
-
-# Set working directory
+# Build React App
+FROM node:18-alpine as build
 WORKDIR /app
-
-# Copy package.json and install dependencies
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install
-
-# Copy the full frontend source
 COPY . .
-
-# Build the React app
 RUN npm run build
 
-# Expose frontend port
-EXPOSE 3000
-
-# Start React app
-CMD ["npm", "start"]
+# Serve React App with Nginx
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
