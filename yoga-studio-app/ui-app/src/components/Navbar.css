@@ -1,0 +1,152 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    width: 100%;
+    height: 81px;
+    background-color: #DFD1C9; /* Beige */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left {
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.nav-center {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.studio-name {
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.studio-name:hover {
+    color: #748385;
+}
+.nav-right {
+    justify-content: flex-end;
+    gap: 20px;
+    white-space: nowrap;
+}
+
+/* 🔹 Linki */
+.nav-link {
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #555;
+}
+
+
+.book-class-button {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #859192;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    white-space: nowrap;
+    flex-shrink: 0;
+    max-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 40px;
+}
+
+.book-class-button:hover {
+    background-color: #748385;
+}
+
+
+/* 🛠 Zapobiega nachodzeniu navbaru na treść strony */
+body {
+    padding-top: 90px;
+}
+
+/* 🔹 MEDIA QUERIES: Dostosowanie do ekranów mobilnych */
+@media (max-width: 1024px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 20px;
+    }
+
+    .nav-left, .nav-center, .nav-right {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .studio-name {
+        font-size: 20px;
+    }
+
+    .book-class-button {
+        padding: 10px 20px;
+        max-width: 120px; /* ✅ Ograniczenie szerokości */
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-left, .nav-right {
+        display: none; /* ✅ Ukrywa sekcje po bokach na małych ekranach */
+    }
+
+    .studio-name {
+        font-size: 18px;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .studio-name {
+        font-size: 16px;
+    }
+
+    .book-class-button {
+        font-size: 14px;
+        padding: 8px 16px;
+        max-width: 100px; /* ✅ Zapobiega zbyt dużemu przyciskowi na małych ekranach */
+    }
+}

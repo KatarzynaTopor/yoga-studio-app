@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   backend:
     build:
@@ -27,20 +29,22 @@ services:
       timeout: 10s
       retries: 3
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: yoga-frontend
-    ports:
-      - "8080:80"
-    depends_on:
-      - backend
-    environment:
-      - REACT_APP_BACKEND_URL=http://backend:8000/api
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+  ui-app:
+      build:
+        context: ./ui-app
+        dockerfile: Dockerfile
+      container_name: yoga-frontend
+      ports:
+        - "8080:8080"
+      depends_on:
+        - backend
+      environment:
+        - REACT_APP_BACKEND_URL=http://localhost:8000/api
+        - CHOKIDAR_USEPOLLING=true  # Poprawia hot-reloading na Dockerze
+      volumes:
+        - ./ui-app:/app  # Mapowanie kodu źródłowego
+        - /app/node_modules  # Zapobiega nadpisywaniu `node_modules`
+      command: [ "npm", "start" ]  # Uruchamiamy React w trybie deweloperskim
 
 
   postgres:

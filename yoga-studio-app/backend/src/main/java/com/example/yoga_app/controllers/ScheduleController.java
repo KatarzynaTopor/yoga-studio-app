@@ -15,7 +15,6 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    // ✅ Get all schedules (Public)
     @GetMapping
     public ResponseEntity<List<Schedule>> getAllSchedules() {
         return ResponseEntity.ok(scheduleService.getAllSchedules());

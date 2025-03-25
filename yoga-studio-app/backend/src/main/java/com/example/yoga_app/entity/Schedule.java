@@ -16,14 +16,13 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
-    private String title;
+    @ManyToOne
+    @JoinColumn(name = "yoga_class_id", nullable = false)
+    private YogaClass yogaClass;
 
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private String instructor;
+    @ManyToOne
+    @JoinColumn(name = "instructor_id", nullable = false)
+    private Instructor instructor;
 
     @Column(nullable = false)
     private LocalDateTime scheduleTime;
