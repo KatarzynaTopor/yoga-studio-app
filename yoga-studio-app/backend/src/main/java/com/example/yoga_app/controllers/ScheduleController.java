@@ -2,7 +2,10 @@ package com.example.yoga_app.controllers;
 
 import com.example.yoga_app.entity.Schedule;
 import com.example.yoga_app.service.ScheduleService;
+import com.example.yoga_app.dto.ScheduleRequestDto;
 import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +18,9 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @GetMapping
-    public ResponseEntity<List<Schedule>> getAllSchedules() {
-        return ResponseEntity.ok(scheduleService.getAllSchedules());
+    @PostMapping
+    public ResponseEntity<Void> createSchedule(@Valid @RequestBody ScheduleRequestDto dto) {
+        scheduleService.createSchedule(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -1,0 +1,111 @@
+:root {
+  --font-family-roboto: "Roboto", sans-serif;
+  --font-family-inter: "Inter", sans-serif;
+  --green: rgba(133, 145, 146, 1);
+  --light-beige: rgba(250, 248, 246, 1);
+  --beige: rgba(223, 209, 201, 1);
+  --grey-blue: rgba(201, 209, 223, 1);
+  --light-green: rgba(146, 156, 157, 1);
+  --text-white: rgba(255, 255, 255, 1);
+  --text-black: rgba(0, 0, 0, 0.54);
+}
+
+/* 🧱 Global Reset */
+body {
+  font-family: var(--font-family-inter);
+  background-color: var(--light-beige);
+  margin: 0;
+  padding: 0;
+}
+
+/* 📦 Wrapper with padding for Navbar space */
+.add-schedule-container {
+  padding-top: 100px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--light-beige);
+}
+
+/* 🧾 Form Box */
+.add-schedule-box {
+  background-color: var(--beige);
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  width: 500px;
+  max-width: 90%;
+}
+
+.add-schedule-box h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: var(--text-black);
+}
+
+/* 📝 Form Style */
+.add-schedule-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-schedule-form input,
+.add-schedule-form textarea {
+  padding: 12px;
+  font-size: 16px;
+  font-family: var(--font-family-inter);
+  background-color: var(--light-beige);
+  border: 1px solid var(--light-green);
+  border-radius: 5px;
+  resize: none;
+}
+
+.add-schedule-form input:focus,
+.add-schedule-form textarea:focus {
+  border-color: var(--green);
+  outline: none;
+}
+
+/* ✅ Button */
+.auth-button {
+  background: var(--green);
+  color: var(--text-white);
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.auth-button:hover {
+  background: var(--light-green);
+}
+
+/* 🔺 Messages */
+.auth-error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .add-schedule-box {
+    padding: 20px;
+  }
+
+  .auth-button {
+    font-size: 14px;
+  }
+}

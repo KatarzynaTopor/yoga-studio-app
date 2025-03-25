@@ -10,15 +10,20 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "schedule")
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Schedule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "yoga_class_id", nullable = false)
-    private YogaClass yogaClass;
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)

@@ -1,0 +1,45 @@
+/* src/pages/ScheduleList.css */
+.schedule-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  font-family: var(--font-family-inter);
+}
+
+.schedule-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--text-black);
+}
+
+.schedule-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--beige);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.time-block, .location-block, .class-block {
+  flex: 1;
+  color: var(--text-black);
+  font-size: 14px;
+}
+
+.sign-up-btn {
+  background-color: var(--green);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sign-up-btn:hover {
+  background-color: var(--light-green);
+}
