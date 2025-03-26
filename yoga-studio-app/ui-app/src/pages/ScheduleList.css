@@ -1,45 +1,66 @@
-/* src/pages/ScheduleList.css */
+
 .schedule-container {
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  font-family: var(--font-family-inter);
+  padding: 2rem;
+  background: #fdfaf7;
+  font-family: 'Inter', sans-serif;
 }
 
-.schedule-heading {
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-  color: var(--text-black);
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .schedule-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: var(--beige);
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
+  justify-content: space-between;
+  background: #e4d6cc;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.time-block, .location-block, .class-block {
-  flex: 1;
-  color: var(--text-black);
-  font-size: 14px;
+.schedule-time {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-.sign-up-btn {
-  background-color: var(--green);
-  color: white;
-  padding: 10px 15px;
+.schedule-duration {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.schedule-details {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.schedule-location {
+  font-size: 0.95rem;
+  color: #777;
+}
+
+.schedule-title {
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.schedule-instructor {
+  color: #777;
+  margin-top: 0.2rem;
+}
+
+.sign-up-button {
+  background: #a4a6a5;
   border: none;
-  border-radius: 5px;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.sign-up-btn:hover {
-  background-color: var(--light-green);
+.sign-up-button:hover {
+  background: #8e8f8e;
 }

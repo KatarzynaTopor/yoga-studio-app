@@ -3,23 +3,25 @@ package com.example.yoga_app.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.yoga_app.entity.Instructor;
+import com.example.yoga_app.repository.InstructorRepository;
 import java.util.List;
 import java.util.Map;
+import com.example.yoga_app.dto.InstructorDto;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/instructors")
-@RequiredArgsConstructor
 public class InstructorsController {
 
-    @GetMapping
-    public ResponseEntity<List<Map<String, String>>> getAllInstructors() {
-        List<Map<String, String>> instructors = List.of(
-                Map.of("name", "dldkfe", "bio", "oekfoek"),
-                Map.of("name", "feof", "bio", "ekfe"),
-                Map.of("name", "fkr", "bio", "fkrlkf")
-        );
+    private final InstructorRepository instructorRepository;
 
-        return ResponseEntity.ok(instructors);
+    @GetMapping
+    public ResponseEntity<List<InstructorDto>> getAllInstructors() {
+        List<InstructorDto> result = instructorRepository.findAll().stream()
+                .map(i -> new InstructorDto(i.getId(), i.getName()))
+                .toList();
+        return ResponseEntity.ok(result);
     }
+
 }

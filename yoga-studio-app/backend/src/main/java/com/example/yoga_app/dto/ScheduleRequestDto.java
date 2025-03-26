@@ -4,15 +4,16 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.Valid;
-
-
+import java.util.UUID;
 import java.time.LocalDateTime;
 
 public record ScheduleRequestDto(
         @NotBlank String title,
         @NotBlank String description,
-        @NotBlank String instructor,
+        @NotNull UUID instructorId,
         @NotNull @Future LocalDateTime scheduleTime,
-        @Min(1) int capacity
+        @Min(1) int capacity,
+        @NotBlank String location,
+        @NotBlank String room,
+        @Min(1) int duration
 ) {}

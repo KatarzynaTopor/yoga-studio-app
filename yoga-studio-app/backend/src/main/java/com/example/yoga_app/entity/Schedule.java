@@ -34,4 +34,13 @@ public class Schedule {
 
     @Column(nullable = false)
     private int capacity;
+
+    @Column(nullable = false)
+    private String location;
+
+    @Column(nullable = false)
+    private String room;
+
+    @Column(nullable = false)
+    private int duration;
 }
