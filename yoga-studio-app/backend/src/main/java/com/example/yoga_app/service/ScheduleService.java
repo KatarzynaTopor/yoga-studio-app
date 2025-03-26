@@ -10,6 +10,7 @@ import com.example.yoga_app.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // <- TO DODAĆ
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class ScheduleService {
         scheduleRepository.save(schedule);
     }
 
+    @Transactional
     public List<ScheduleResponseDto> getAllSchedules() {
         return scheduleMapper.toDtoList(scheduleRepository.findAll());
     }
