@@ -15,7 +15,6 @@ CREATE TABLE schedule (
     id UUID PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
-    instructor VARCHAR(50) NOT NULL,
     schedule_time TIMESTAMP NOT NULL,
     capacity INT NOT NULL
 );

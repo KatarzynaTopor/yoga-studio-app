@@ -25,9 +25,10 @@ public class Schedule {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "instructor_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id", nullable = false)
     private Instructor instructor;
+
 
     @Column(nullable = false)
     private LocalDateTime scheduleTime;

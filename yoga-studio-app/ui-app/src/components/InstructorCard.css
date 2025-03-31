@@ -1,0 +1,36 @@
+.instructor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.instructor-info {
+  max-width: 60%;
+}
+
+.instructor-info h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #3d3d3d;
+}
+
+.instructor-info p {
+  margin: 5px 0;
+  color: #8c8c8c;
+  line-height: 1.5;
+}
+
+.instructor-info p strong {
+  color: #333;
+}
+
+.instructor-image {
+  width: 200px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}

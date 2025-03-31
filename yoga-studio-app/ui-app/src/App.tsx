@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Navbar from "./components/Navbar";
 import LoginRegister from "./pages/LoginRegister";
 import ScheduleList from "./pages/ScheduleList";
-
+import InstructorsPage from "./pages/InstructorsPage"; // 🆕
 
 const App: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -15,7 +15,7 @@ const App: React.FC = () => {
                 <Route path="/login" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
                 <Route path="/register" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
                 <Route path="/schedule" element={<ScheduleList />} />
-                {/*  Protect Home Route */}
+                <Route path="/instructors" element={<InstructorsPage />} />
                 <Route path="/" element={isAuthenticated ? <h1>Home Page (Protected)</h1> : <Navigate to="/login" />} />
             </Routes>
         </Router>

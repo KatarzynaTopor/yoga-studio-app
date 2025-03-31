@@ -28,7 +28,7 @@ public class Booking {
     private Schedule schedule;
 
     @Column(nullable = false)
-    private String status = "CONFIRMED"; // Można też ustawić jako ENUM
+    private String status = "CONFIRMED";
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt = Instant.now();

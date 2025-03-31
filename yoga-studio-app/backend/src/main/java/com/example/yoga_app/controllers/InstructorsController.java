@@ -19,9 +19,17 @@ public class InstructorsController {
     @GetMapping
     public ResponseEntity<List<InstructorDto>> getAllInstructors() {
         List<InstructorDto> result = instructorRepository.findAll().stream()
-                .map(i -> new InstructorDto(i.getId(), i.getName()))
+                .map(i -> new InstructorDto(
+                        i.getId(),
+                        i.getName(),
+                        i.getSpecialties(),
+                        i.getExperience(),
+                        i.getBio(),
+                        i.getImageUrl()
+                ))
                 .toList();
         return ResponseEntity.ok(result);
     }
+
 
 }
