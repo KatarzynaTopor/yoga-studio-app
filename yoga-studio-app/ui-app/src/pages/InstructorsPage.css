@@ -1,12 +1,67 @@
 .instructors-container {
-  padding: 40px 80px;
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: #fff;
+  padding: 50px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
 }
 
 .page-title {
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 84%;
+  letter-spacing: -4%;
   margin-bottom: 40px;
-  color: #2c2c2c;
+  text-align: center;
+  color: #758081;
+}
+
+.instructors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.instructor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 30px 0;
+  border-bottom: 1px solid #ddd;
+
+}
+
+.instructor-info {
+  flex: 1;
+}
+
+.instructor-info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: -2%;
+  color: #758081;
+}
+
+.instructor-info p {
+  font-size: 24px;
+  color: #DFD1C9;
+  margin: 6px 0;
+  line-height: 130%;
+}
+
+.instructor-info p strong {
+  color: #758081
+  font-weight: 600;
+}
+
+
+.instructor-image {
+  width: 220px;
+  height: 220px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  object-fit: cover;
 }

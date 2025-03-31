@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Navbar from "./components/Navbar";
 import LoginRegister from "./pages/LoginRegister";
 import ScheduleList from "./pages/ScheduleList";
-import InstructorsPage from "./pages/InstructorsPage"; // 🆕
+import InstructorsPage from "./pages/InstructorsPage";
 
 const App: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);

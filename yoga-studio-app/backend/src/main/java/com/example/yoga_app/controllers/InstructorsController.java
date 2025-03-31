@@ -31,5 +31,12 @@ public class InstructorsController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping
+    public ResponseEntity<Instructor> addInstructor(@RequestBody Instructor instructor) {
+        Instructor saved = instructorRepository.save(instructor);
+        return ResponseEntity.ok(saved);
+    }
+
+
 
 }
