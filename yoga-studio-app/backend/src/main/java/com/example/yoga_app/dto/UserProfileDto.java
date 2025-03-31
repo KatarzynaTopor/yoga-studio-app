@@ -1,4 +1,9 @@
 package com.example.yoga_app.dto;
 
-public record UserProfileDto(String email, String username) {
-}
+import java.util.UUID;
+
+public record UserProfileDto(
+        UUID id,
+        String username,
+        String email
+) {}

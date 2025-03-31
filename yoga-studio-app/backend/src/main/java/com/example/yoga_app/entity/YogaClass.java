@@ -14,7 +14,7 @@ public class YogaClass {
     private UUID id;
 
     @Column(nullable = false)
-    private String name; // e.g. Hatha Yoga
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;

@@ -1,5 +1,5 @@
 .instructors-container {
-  padding: 50px 20px;
+  padding: 100px 20px 50px; /* 100px na górze, żeby nie nachodził navbar */
   max-width: 1100px;
   margin: 0 auto;
   font-family: 'Inter', sans-serif;
@@ -29,7 +29,6 @@
   gap: 40px;
   padding: 30px 0;
   border-bottom: 1px solid #ddd;
-
 }
 
 .instructor-info {
@@ -53,10 +52,9 @@
 }
 
 .instructor-info p strong {
-  color: #758081
+  color: #758081;
   font-weight: 600;
 }
-
 
 .instructor-image {
   width: 220px;

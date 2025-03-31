@@ -14,6 +14,10 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Schedule {
+    public Schedule(UUID id) {
+        this.id = id;
+    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

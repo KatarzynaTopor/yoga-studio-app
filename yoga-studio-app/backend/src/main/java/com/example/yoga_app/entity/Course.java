@@ -16,7 +16,7 @@ public class Course {
     @Column(nullable = false)
     private String title;
 
-    private String duration; // e.g. 6 weeks
+    private String duration;
 
     @ManyToOne
     @JoinColumn(name = "level_id")

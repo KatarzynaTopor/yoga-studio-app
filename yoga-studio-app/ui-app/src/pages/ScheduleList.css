@@ -3,13 +3,18 @@
   padding: 2rem;
   background: #fdfaf7;
   font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
 .schedule-list {
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 
 .schedule-card {
   display: flex;
