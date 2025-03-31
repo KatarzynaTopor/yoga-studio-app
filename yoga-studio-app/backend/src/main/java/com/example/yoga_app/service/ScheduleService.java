@@ -4,9 +4,11 @@ import com.example.yoga_app.dto.ScheduleRequestDto;
 import com.example.yoga_app.dto.ScheduleResponseDto;
 import com.example.yoga_app.entity.Instructor;
 import com.example.yoga_app.entity.Schedule;
+import com.example.yoga_app.entity.Booking;
 import com.example.yoga_app.mapper.ScheduleMapper;
 import com.example.yoga_app.repository.InstructorRepository;
 import com.example.yoga_app.repository.ScheduleRepository;
+import com.example.yoga_app.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final InstructorRepository instructorRepository;
     private final ScheduleMapper scheduleMapper;
+    private final BookingRepository bookingRepository;
+
 
     public void createSchedule(ScheduleRequestDto dto) {
         Instructor instructor = instructorRepository.findById(dto.instructorId())
@@ -40,7 +44,12 @@ public class ScheduleService {
         schedule.setDuration(dto.duration());
 
         scheduleRepository.save(schedule);
+
+        // (opcjonalnie, np. do logowania/debugowania)
+        long booked = bookingRepository.countBySchedule(schedule);
+        System.out.println("Current bookings for new class: " + booked);
     }
+
 
     @Transactional
     public List<ScheduleResponseDto> getAllSchedules() {

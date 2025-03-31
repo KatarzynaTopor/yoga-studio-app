@@ -12,5 +12,6 @@ public record ScheduleResponseDto(
         String instructorName,
         String location,
         String room,
-        int duration
+        int duration,
+        int booked
 ) {}

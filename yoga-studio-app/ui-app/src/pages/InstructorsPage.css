@@ -63,3 +63,10 @@
   border-radius: 8px;
   object-fit: cover;
 }
+
+.error-message {
+  color: red;
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginRegister.css";
 
-// ✅ FIX: Use `import.meta.env` for Vite compatibility
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/api/auth";
 
 interface LoginRegisterProps {
@@ -20,17 +19,14 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    // ✅ Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // ✅ Handle form submission
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
 
-        // ✅ Validate password confirmation
         if (!isLogin && formData.password !== formData.confirmPassword) {
             setError("Passwords do not match.");
             return;
@@ -52,10 +48,9 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
 
             if (response.ok) {
                 if (isLogin) {
-                    // ✅ Use localStorage for persistent login state
                     localStorage.setItem("accessToken", data.token);
                     setIsAuthenticated(true);
-                    navigate("/"); // ✅ Redirect to home page after login
+                    navigate("/schedule");
                 } else {
                     alert("Registered successfully! You can now log in.");
                     setIsLogin(true);

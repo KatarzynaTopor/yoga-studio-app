@@ -12,17 +12,29 @@ type Instructor = {
 
 const InstructorsPage: React.FC = () => {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:8000/api/instructors")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch instructors");
+        }
+        return res.json();
+      })
       .then((data) => setInstructors(data))
-      .catch((err) => console.error("Fetch error:", err));
+      .catch((err) => {
+        console.error("Fetch error:", err);
+        setError("Could not load instructors.");
+      });
   }, []);
 
   return (
     <div className="instructors-container">
       <h1 className="page-title">Our Instructors</h1>
+
+      {error && <p className="error-message">{error}</p>}
+
       <div className="instructors-list">
         {instructors.map((instructor) => (
           <div key={instructor.id} className="instructor-card">

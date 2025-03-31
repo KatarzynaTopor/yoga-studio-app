@@ -1,71 +1,23 @@
-
-.schedule-container {
-  padding: 2rem;
-  background: #fdfaf7;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  justify-content: center;
+.booking-progress {
+  margin-top: 10px;
 }
 
-.schedule-list {
+.capacity-bar {
+  height: 8px;
   width: 100%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  background: #ccc;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-
-.schedule-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #e4d6cc;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.capacity-fill {
+  height: 100%;
+  background-color: #758081;
+  transition: width 0.3s ease-in-out;
 }
 
-.schedule-time {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.schedule-duration {
-  font-size: 0.9rem;
-  color: #777;
-}
-
-.schedule-details {
-  flex: 1;
-  margin-left: 1rem;
-}
-
-.schedule-location {
-  font-size: 0.95rem;
-  color: #777;
-}
-
-.schedule-title {
-  font-weight: 600;
-  margin-top: 0.2rem;
-}
-
-.schedule-instructor {
-  color: #777;
-  margin-top: 0.2rem;
-}
-
-.sign-up-button {
-  background: #a4a6a5;
-  border: none;
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.sign-up-button:hover {
-  background: #8e8f8e;
+.capacity-text {
+  font-size: 13px;
+  margin-top: 4px;
+  color: #555;
 }

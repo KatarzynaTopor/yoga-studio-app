@@ -33,6 +33,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors()
+                .and()
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/api/homepage", "/api/schedule", "/api/classes", "/api/instructors").permitAll()
@@ -40,9 +42,14 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer(server -> server.jwt()) // ✅ Fix incorrect `Customizer.withDefaults()`
+                .oauth2ResourceServer(server -> server.jwt())
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                )
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager() {

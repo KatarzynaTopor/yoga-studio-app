@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
     long countBySchedule(Schedule schedule);
     boolean existsByUserAndSchedule(User user, Schedule schedule);
+
     List<Booking> findAllBySchedule(Schedule schedule);
 }
