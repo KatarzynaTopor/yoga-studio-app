@@ -31,6 +31,7 @@ public class User {
     @Column(updatable = false, nullable = false)
     private UUID id;
 
+
     @Column(nullable = false, unique = true)
     private String username;
 

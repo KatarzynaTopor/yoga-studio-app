@@ -75,6 +75,9 @@ const ScheduleList: React.FC = () => {
   return (
     <div className="schedule-container">
       <h1 className="page-title">Class Schedule</h1>
+      <button className="refresh-button" onClick={fetchSchedules}>
+               Refresh Schedule
+            </button>
       <div className="schedule-list">
         {schedules.map((s) => {
           const time = new Date(s.scheduleTime);

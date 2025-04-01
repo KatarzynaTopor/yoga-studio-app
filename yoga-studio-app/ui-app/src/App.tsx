@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import LoginRegister from "./pages/LoginRegister";
 import ScheduleList from "./pages/ScheduleList";
 import InstructorsPage from "./pages/InstructorsPage";
+import MyBookings from "./pages/MyBookings";
 import "./App.css";
 
 const App: React.FC = () => {
@@ -31,6 +32,7 @@ const App: React.FC = () => {
           <Route path="/register" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/instructors" element={<InstructorsPage />} />
+          <Route path="/users/:id" element={<MyBookings />} />
           <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/login" />} />
         </Routes>
       </div>

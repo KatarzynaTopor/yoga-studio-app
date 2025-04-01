@@ -67,6 +67,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
     return (
         <div className="auth-container">
             <div className="auth-box">
+
                 <div className="auth-tabs">
                     <button className={`auth-tab ${isLogin ? "active" : ""}`} onClick={() => setIsLogin(true)}>
                         Log in
