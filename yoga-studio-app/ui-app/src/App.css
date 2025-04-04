@@ -1,14 +1,15 @@
-/* App.css */
-body {
+
+html, body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #fdfaf7; /* główne tło strony */
+    min-height: 100%;
+  background-color: #FAF8F6;
 }
 
 .navbar-wrapper {
-  background-color: #DFD1C9; /* kolor tła navbaru */
+  background-color: #DFD1C9;
 }
 
 .app-content {
-  padding-top: 90px; /* kompensuje navbar wysokość */
+  padding-top: 90px;
 }

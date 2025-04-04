@@ -22,6 +22,7 @@ services:
         condition: service_healthy
     volumes:
       - ./backend/target:/app/target
+      - ./backend/uploads:/app/uploads
     entrypoint: ["java", "-jar", "/app/app.jar"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000"]

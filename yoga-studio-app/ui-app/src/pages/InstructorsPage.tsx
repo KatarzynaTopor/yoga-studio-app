@@ -29,23 +29,28 @@ const InstructorsPage: React.FC = () => {
       });
   }, []);
 
+  const resolveImageUrl = (url: string): string => {
+    if (!url) return "https://via.placeholder.com/400x300";
+    if (url.startsWith("/uploads/")) {
+      return `http://localhost:8000${url}`;
+    }
+    return url; // fallback: full external URL
+  };
+
   return (
     <div className="instructors-container">
-      <h1 className="page-title">Our Instructors</h1>
-
       {error && <p className="error-message">{error}</p>}
-
       <div className="instructors-list">
         {instructors.map((instructor) => (
           <div key={instructor.id} className="instructor-card">
             <div className="instructor-info">
               <h2>{instructor.name}</h2>
-              <p><strong>Specialities:</strong> {instructor.specialties}</p>
+              <p><strong>Specialties:</strong> {instructor.specialties}</p>
               <p><strong>Experience:</strong> {instructor.experience}</p>
               <p><strong>About:</strong> {instructor.bio}</p>
             </div>
             <img
-              src={instructor.imageUrl || "https://via.placeholder.com/220"}
+              src={resolveImageUrl(instructor.imageUrl)}
               alt={instructor.name}
               className="instructor-image"
             />
