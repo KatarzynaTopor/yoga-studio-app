@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  format,
+  isSameDay,
+  addDays,
+  startOfToday,
+  addWeeks,
+  subWeeks,
+} from "date-fns";
 import "./ScheduleList.css";
 
 interface Schedule {
@@ -18,6 +26,8 @@ interface Schedule {
 const ScheduleList: React.FC = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [bookingStatus, setBookingStatus] = useState<{ [key: string]: string }>({});
+  const [selectedDate, setSelectedDate] = useState<Date>(startOfToday());
+  const [weekOffset, setWeekOffset] = useState(0); // ⬅️ do przesuwania tygodni
   const navigate = useNavigate();
 
   const fetchSchedules = async () => {
@@ -36,7 +46,6 @@ const ScheduleList: React.FC = () => {
 
   const handleSignUp = async (scheduleId: string) => {
     const token = localStorage.getItem("accessToken");
-
     if (!token) {
       navigate("/login");
       return;
@@ -55,7 +64,7 @@ const ScheduleList: React.FC = () => {
           ...prev,
           [scheduleId]: "✅ Signed up successfully!",
         }));
-        fetchSchedules(); // 🔄 Refresh data to update progress bar
+        fetchSchedules();
       } else {
         const errorText = await (response?.text?.() ?? "An error occurred.");
         setBookingStatus((prev) => ({
@@ -72,53 +81,80 @@ const ScheduleList: React.FC = () => {
     }
   };
 
+  const weekStart = addWeeks(startOfToday(), weekOffset);
+
   return (
     <div className="schedule-container">
+      <div className="day-picker-wrapper">
+        <button className="week-arrow" onClick={() => setWeekOffset((w) => w - 1)}>←</button>
+        <div className="day-picker">
+          {[...Array(7)].map((_, i) => {
+            const date = addDays(weekStart, i);
+            const isActive = isSameDay(date, selectedDate);
+            return (
+              <button
+                key={i}
+                className={`day-button ${isActive ? "active" : ""}`}
+                onClick={() => setSelectedDate(date)}
+              >
+                <div className="day-name">{format(date, "EEE").toUpperCase()}</div>
+                <div className="day-date">{format(date, "dd MMM")}</div>
+              </button>
+            );
+          })}
+        </div>
+        <button className="week-arrow" onClick={() => setWeekOffset((w) => w + 1)}>→</button>
+      </div>
+
       <h1 className="page-title">Class Schedule</h1>
+
       <button className="refresh-button" onClick={fetchSchedules}>
-               Refresh Schedule
-            </button>
+        Refresh Schedule
+      </button>
+
       <div className="schedule-list">
-        {schedules.map((s) => {
-          const time = new Date(s.scheduleTime);
-          const percentBooked = Math.min((s.booked / s.capacity) * 100, 100);
+        {schedules
+          .filter((s) => isSameDay(new Date(s.scheduleTime), selectedDate))
+          .map((s) => {
+            const time = new Date(s.scheduleTime);
+            const percentBooked = Math.min((s.booked / s.capacity) * 100, 100);
 
-          return (
-            <div key={s.id} className="schedule-card">
-              <div className="schedule-time">
-                <strong>{time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</strong>
-                <div className="schedule-duration">
-                  {Math.floor(s.duration / 60)} H {s.duration % 60} MIN
-                </div>
-              </div>
-
-              <div className="schedule-details">
-                <div className="schedule-location">{s.location},<br />{s.room}</div>
-                <div className="schedule-info">
-                  <div className="schedule-title">{s.title}</div>
-                  <div className="schedule-instructor">{s.instructorName}</div>
-                </div>
-                <div className="booking-progress">
-                  <div className="capacity-bar">
-                    <div className="capacity-fill" style={{ width: `${percentBooked}%` }}></div>
-                  </div>
-                  <div className="capacity-text">
-                    {s.booked} / {s.capacity} booked
+            return (
+              <div key={s.id} className="schedule-card">
+                <div className="schedule-time">
+                  <strong>{time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</strong>
+                  <div className="schedule-duration">
+                    {Math.floor(s.duration / 60)} H {s.duration % 60} MIN
                   </div>
                 </div>
-              </div>
 
-              <div className="signup-section">
-                <button className="sign-up-button" onClick={() => handleSignUp(s.id)}>
-                  SIGN UP
-                </button>
-                {bookingStatus[s.id] && (
-                  <p className="booking-message">{bookingStatus[s.id]}</p>
-                )}
+                <div className="schedule-details">
+                  <div className="schedule-location">{s.location},<br />{s.room}</div>
+                  <div className="schedule-info">
+                    <div className="schedule-title">{s.title}</div>
+                    <div className="schedule-instructor">{s.instructorName}</div>
+                  </div>
+                  <div className="booking-progress">
+                    <div className="capacity-bar">
+                      <div className="capacity-fill" style={{ width: `${percentBooked}%` }}></div>
+                    </div>
+                    <div className="capacity-text">
+                      {s.booked} / {s.capacity} booked
+                    </div>
+                  </div>
+                </div>
+
+                <div className="signup-section">
+                  <button className="sign-up-button" onClick={() => handleSignUp(s.id)}>
+                    SIGN UP
+                  </button>
+                  {bookingStatus[s.id] && (
+                    <p className="booking-message">{bookingStatus[s.id]}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
