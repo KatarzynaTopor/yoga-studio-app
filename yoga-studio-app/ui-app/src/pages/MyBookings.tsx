@@ -98,11 +98,13 @@ const MyBookings: React.FC = () => {
           );
         })}
       </div>
-      <div style={{ marginTop: "2rem", textAlign: "center" }}>
-            <button className="refresh-button" onClick={fetchBookings}>
-                Odśwież listę zajęć
-            </button>
-          </div>
+      <button className="refresh-button" onClick={() => {
+        console.log("Kliknięto przycisk odświeżania — wywołuję fetchBookings()");
+        fetchBookings();
+      }}>
+        Odśwież listę zajęć
+      </button>
+
     </div>
   );
 };

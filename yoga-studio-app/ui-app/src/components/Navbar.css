@@ -19,19 +19,49 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.nav-left, .nav-center, .nav-right {
+/* NAV SECTIONS */
+
+.nav-left,
+.nav-center,
+.nav-right {
   display: flex;
   align-items: center;
 }
 
 .nav-left {
+  flex: 1;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 24px;
 }
 
 .nav-center {
-  flex-grow: 1;
+  flex: 0 1 auto;
   justify-content: center;
+  padding: 0 20px;
+}
+
+.nav-right {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 20px;
+  padding-right: 8px;
+}
+
+/* LINKS & STUDIO NAME */
+
+.nav-link {
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease-in-out;
+  letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+  color: #555;
 }
 
 .studio-name {
@@ -48,25 +78,7 @@
   color: #748385;
 }
 
-.nav-right {
-  justify-content: flex-end;
-  gap: 20px;
-  white-space: nowrap;
-}
-
-.nav-link {
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s ease-in-out;
-}
-
-.nav-link:hover {
-  color: #555;
-}
+/* BUTTON */
 
 .book-class-button {
   font-size: 16px;
@@ -76,25 +88,25 @@
   background-color: #859192;
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
   white-space: nowrap;
   flex-shrink: 0;
-  max-width: 140px;
+  min-width: 130px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  height: 40px;
 }
 
 .book-class-button:hover {
   background-color: #748385;
 }
 
-/* Media queries – no changes */
+/* MEDIA QUERIES */
+
 @media (max-width: 1024px) {
   .navbar {
     flex-direction: column;
