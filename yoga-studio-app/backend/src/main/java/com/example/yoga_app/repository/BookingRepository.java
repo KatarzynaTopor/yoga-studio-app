@@ -4,6 +4,8 @@ import com.example.yoga_app.entity.Booking;
 import com.example.yoga_app.entity.Schedule;
 import com.example.yoga_app.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +15,8 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
     boolean existsByUserAndSchedule(User user, Schedule schedule);
 
     List<Booking> findAllBySchedule(Schedule schedule);
+    Optional<Booking> findByUserAndSchedule(User user, Schedule schedule);
+
     List<Booking> findAllByUser(User user);
 
 }

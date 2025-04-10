@@ -52,4 +52,33 @@ public class BookingController {
 
         return ResponseEntity.ok("Booked successfully.");
     }
+
+    @DeleteMapping("/schedule/{scheduleId}/cancel")
+    public ResponseEntity<?> cancelBooking(
+            @PathVariable UUID scheduleId,
+            @RequestParam UUID userId,
+            Authentication authentication) {
+
+        // Potwierdź że użytkownik z tokena to ten sam co w zapytaniu
+        User authUser = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!authUser.getId().equals(userId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized user");
+        }
+
+        // Pobierz schedule
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found"));
+
+        // Znajdź rezerwację
+        Booking booking = bookingRepository.findByUserAndSchedule(authUser, schedule)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
+
+        // Usuń rezerwację
+        bookingRepository.delete(booking);
+
+        return ResponseEntity.ok("Booking canceled successfully.");
+    }
+
 }

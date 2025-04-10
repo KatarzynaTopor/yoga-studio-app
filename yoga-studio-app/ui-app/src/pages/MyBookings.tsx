@@ -36,7 +36,7 @@ const MyBookings: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         setUserName(data.username || "");
-        setBookedClasses(data); // zakładamy, że zwracana lista to lista zajęć
+        setBookedClasses(data);
       } else {
         console.error("Failed to fetch bookings");
       }
@@ -48,7 +48,7 @@ const MyBookings: React.FC = () => {
   const handleSignOut = async (scheduleId: string) => {
     const token = sessionStorage.getItem("accessToken");
     try {
-      const response = await fetch(`http://localhost:8000/api/schedule/${scheduleId}/cancel`, {
+      const response = await fetch(`http://localhost:8000/api/schedule/${scheduleId}/cancel?userId=${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
