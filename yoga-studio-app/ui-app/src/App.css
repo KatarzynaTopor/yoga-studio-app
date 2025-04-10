@@ -1,15 +1,22 @@
-
-html, body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-    min-height: 100%;
-  background-color: #FAF8F6;
-}
-
 .navbar-wrapper {
   background-color: #DFD1C9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 81px;
+  z-index: 1000;
+}
+html, body {
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
 }
 
 .app-content {
-  padding-top: 90px;
+  padding-top: 81px;
+  background-color: #FAF8F6;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
+

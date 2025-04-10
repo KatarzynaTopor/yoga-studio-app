@@ -1,9 +1,11 @@
 .instructors-container {
-  padding: 700px 20px 50px;
-  min-height: 100%;
+  padding: 100px 20px 50px;
+  min-height: 100vh;
   background-color: #FAF8F6;
+  max-width: 1440px;
   margin: 0 auto;
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
 
 

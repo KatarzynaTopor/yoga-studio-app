@@ -27,7 +27,7 @@ const ScheduleList: React.FC = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [bookingStatus, setBookingStatus] = useState<{ [key: string]: string }>({});
   const [selectedDate, setSelectedDate] = useState<Date>(startOfToday());
-  const [weekOffset, setWeekOffset] = useState(0); // ⬅️ do przesuwania tygodni
+  const [weekOffset, setWeekOffset] = useState(0);
   const navigate = useNavigate();
 
   const fetchSchedules = async () => {
@@ -81,12 +81,24 @@ const ScheduleList: React.FC = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const weekStart = addWeeks(startOfToday(), weekOffset);
 
   return (
     <div className="schedule-container">
       <div className="day-picker-wrapper">
-        <button className="week-arrow" onClick={() => setWeekOffset((w) => w - 1)}>←</button>
+        <button
+          className="week-arrow"
+          onClick={() => {
+            setWeekOffset((w) => w - 1);
+            scrollToTop();
+          }}
+        >
+          ←
+        </button>
         <div className="day-picker">
           {[...Array(7)].map((_, i) => {
             const date = addDays(weekStart, i);
@@ -103,7 +115,15 @@ const ScheduleList: React.FC = () => {
             );
           })}
         </div>
-        <button className="week-arrow" onClick={() => setWeekOffset((w) => w + 1)}>→</button>
+        <button
+          className="week-arrow"
+          onClick={() => {
+            setWeekOffset((w) => w + 1);
+            scrollToTop();
+          }}
+        >
+          →
+        </button>
       </div>
 
       <h1 className="page-title">Class Schedule</h1>
@@ -122,21 +142,32 @@ const ScheduleList: React.FC = () => {
             return (
               <div key={s.id} className="schedule-card">
                 <div className="schedule-time">
-                  <strong>{time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</strong>
+                  <strong>
+                    {time.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </strong>
                   <div className="schedule-duration">
                     {Math.floor(s.duration / 60)} H {s.duration % 60} MIN
                   </div>
                 </div>
 
                 <div className="schedule-details">
-                  <div className="schedule-location">{s.location},<br />{s.room}</div>
+                  <div className="schedule-location">
+                    {s.location},<br />
+                    {s.room}
+                  </div>
                   <div className="schedule-info">
                     <div className="schedule-title">{s.title}</div>
                     <div className="schedule-instructor">{s.instructorName}</div>
                   </div>
                   <div className="booking-progress">
                     <div className="capacity-bar">
-                      <div className="capacity-fill" style={{ width: `${percentBooked}%` }}></div>
+                      <div
+                        className="capacity-fill"
+                        style={{ width: `${percentBooked}%` }}
+                      ></div>
                     </div>
                     <div className="capacity-text">
                       {s.booked} / {s.capacity} booked
@@ -145,7 +176,10 @@ const ScheduleList: React.FC = () => {
                 </div>
 
                 <div className="signup-section">
-                  <button className="sign-up-button" onClick={() => handleSignUp(s.id)}>
+                  <button
+                    className="sign-up-button"
+                    onClick={() => handleSignUp(s.id)}
+                  >
                     SIGN UP
                   </button>
                   {bookingStatus[s.id] && (
