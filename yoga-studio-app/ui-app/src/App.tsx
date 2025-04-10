@@ -9,13 +9,13 @@ import "./App.css";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return !!localStorage.getItem("accessToken");
+    return !!sessionStorage.getItem("accessToken");
   });
 
 
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("accessToken");
     if (token) {
       setIsAuthenticated(true);
     }
@@ -32,7 +32,7 @@ const App: React.FC = () => {
           <Route path="/register" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/instructors" element={<InstructorsPage />} />
-          <Route path="/users/:id" element={<MyBookings />} />
+          <Route path="/my-account" element={<MyBookings />} />
           <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/login" />} />
         </Routes>
       </div>

@@ -48,7 +48,8 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
 
             if (response.ok) {
                 if (isLogin) {
-                    localStorage.setItem("accessToken", data.token);
+                    sessionStorage.setItem("accessToken", data.token);
+                    sessionStorage.setItem("userId", data.userId);
                     setIsAuthenticated(true);
                     navigate("/schedule");
                 } else {

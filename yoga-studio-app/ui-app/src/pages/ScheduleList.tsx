@@ -45,7 +45,7 @@ const ScheduleList: React.FC = () => {
   }, []);
 
   const handleSignUp = async (scheduleId: string) => {
-    const token = localStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("accessToken");
     if (!token) {
       navigate("/login");
       return;

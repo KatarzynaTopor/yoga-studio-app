@@ -1,4 +1,10 @@
 package com.example.yoga_app.dto;
 
-public record AuthenticationResponseDto(String token) {
-}
+
+import java.util.UUID;
+
+public record AuthenticationResponseDto(
+        String token,
+        UUID userId,
+        String username
+) {}

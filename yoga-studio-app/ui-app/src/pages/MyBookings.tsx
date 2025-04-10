@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./ScheduleList.css";
+import { useNavigate } from "react-router-dom";
+import "./MyBookings.css";
 
 interface Schedule {
   id: string;
@@ -14,16 +14,18 @@ interface Schedule {
 
 const MyBookings: React.FC = () => {
   const [bookedClasses, setBookedClasses] = useState<Schedule[]>([]);
+  const [userName, setUserName] = useState<string>("");
   const navigate = useNavigate();
-  const { id: userId } = useParams<{ id: string }>();
+
+  const userId = sessionStorage.getItem("userId");
 
   const fetchBookings = async () => {
-    const token = localStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("accessToken");
     if (!token || !userId) {
       navigate("/login");
       return;
     }
-    console.log("Wysłano zapytanie GET o rezerwacje użytkownika:", userId);
+
     try {
       const response = await fetch(`http://localhost:8000/api/users/${userId}`, {
         headers: {
@@ -31,10 +33,10 @@ const MyBookings: React.FC = () => {
         },
       });
 
-
       if (response.ok) {
         const data = await response.json();
-        setBookedClasses(data);
+        setUserName(data.username || "");
+        setBookedClasses(data); // zakładamy, że zwracana lista to lista zajęć
       } else {
         console.error("Failed to fetch bookings");
       }
@@ -44,7 +46,7 @@ const MyBookings: React.FC = () => {
   };
 
   const handleSignOut = async (scheduleId: string) => {
-    const token = localStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("accessToken");
     try {
       const response = await fetch(`http://localhost:8000/api/schedule/${scheduleId}/cancel`, {
         method: "DELETE",
@@ -64,16 +66,16 @@ const MyBookings: React.FC = () => {
   };
 
   useEffect(() => {
-    if (userId) {
-      fetchBookings();
-    }
-  }, [userId]);
+    fetchBookings();
+  }, []);
 
   return (
     <div className="schedule-container">
-      <h2 className="page-title">Classes booked by user {userId}</h2>
-      <div className="schedule-list">
+      <h2 className="page-title">
+        {userName ? `Classes booked by ${userName}` : "Your Booked Classes"}
+      </h2>
 
+      <div className="schedule-list">
         {bookedClasses.map((c) => {
           const time = new Date(c.scheduleTime);
           return (
@@ -93,18 +95,27 @@ const MyBookings: React.FC = () => {
                   <div className="schedule-instructor">{c.instructorName}</div>
                 </div>
               </div>
-              <button className="sign-up-button" onClick={() => handleSignOut(c.id)}>SIGN OUT</button>
+              <button className="sign-up-button" onClick={() => handleSignOut(c.id)}>
+                SIGN OUT
+              </button>
             </div>
           );
         })}
       </div>
-      <button className="refresh-button" onClick={() => {
-        console.log("Kliknięto przycisk odświeżania — wywołuję fetchBookings()");
-        fetchBookings();
-      }}>
+
+      <button className="refresh-button" onClick={fetchBookings}>
         Odśwież listę zajęć
       </button>
 
+      <button
+        className="logout-button"
+        onClick={() => {
+          sessionStorage.clear();
+          navigate("/login");
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };

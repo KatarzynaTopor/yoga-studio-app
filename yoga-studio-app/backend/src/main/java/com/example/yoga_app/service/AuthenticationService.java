@@ -2,23 +2,32 @@ package com.example.yoga_app.service;
 
 import com.example.yoga_app.dto.AuthenticationRequestDto;
 import com.example.yoga_app.dto.AuthenticationResponseDto;
+import com.example.yoga_app.entity.User;
+import com.example.yoga_app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
 
-    public AuthenticationResponseDto authenticate(final AuthenticationRequestDto request) {
-        final var authToken = UsernamePasswordAuthenticationToken.unauthenticated(request.username(), request.password());
-        final var authentication = authenticationManager.authenticate(authToken);
+    public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.username(), request.password())
+        );
 
-        final var token = jwtService.generateToken(request.username());
-        return new AuthenticationResponseDto(token);
+        User user = userRepository.findByUsername(request.username())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // ✅ Użyj username, jeśli metoda wymaga Stringa
+        String token = jwtService.generateToken(user.getUsername());
+
+        return new AuthenticationResponseDto(token, user.getId(), user.getUsername());
     }
 }

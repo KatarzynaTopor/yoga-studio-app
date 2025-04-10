@@ -4,7 +4,7 @@ import "./Navbar.css";
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
-    const isAuthenticated = !!localStorage.getItem("accessToken");
+    const isAuthenticated = !!sessionStorage.getItem("accessToken");
 
     const handleBookClick = () => {
         if (isAuthenticated) {
@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="nav-section nav-right">
-                <Link to="/schedule" className="nav-link">Schedule</Link>
+                <Link to="/my-account" className="nav-link">My Account</Link>
                 <button className="book-class-button" onClick={handleBookClick}>
                     Book a Class
                 </button>

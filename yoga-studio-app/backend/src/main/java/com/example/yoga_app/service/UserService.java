@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // ✅ Delete User
+
     @Transactional
     public void deleteUser(String username) {
         var user = getUserByUsername(username);
