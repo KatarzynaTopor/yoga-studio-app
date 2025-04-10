@@ -1,0 +1,166 @@
+.homepage-container {
+  background-color: #faf8f6;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 808px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 60px;
+  background-color: #e6d6cd;
+  overflow: hidden;
+}
+
+.hero-text {
+  flex: 1;
+  z-index: 2;
+  padding-right: 40px;
+}
+
+.hero-text h1 {
+  font-size: 92px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  line-height: 84%;
+  letter-spacing: -4%;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 24px;
+}
+
+.hero-text p {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 0%;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.sign-up-button {
+  font-size: 24px;
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: 2px solid #fff;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sign-up-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hero-logo-wrapper {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.hero-logo {
+  width: 733px;
+  height: auto;
+  border: 1px solid #faf8f6;
+}
+
+
+/* --- CLASS TYPES SECTION --- */
+.class-types {
+  background-color: #faf8f6;
+  padding: 80px 60px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.class-card {
+  background-color: #faf8f6;
+  border: 3px solid #dfd1c9;
+  padding: 32px 24px;
+  max-width: 260px;
+  min-height: 220px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease;
+}
+
+.class-card:hover {
+  transform: translateY(-4px);
+}
+
+.class-card h3 {
+  font-size: 20px;
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  color: #dfd1c9;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.class-card p {
+  font-size: 13px;
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  color: #dfd1c9;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+
+/* --- ABOUT SECTION --- */
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  padding: 80px 60px;
+  background-color: #faf8f6;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h2 {
+  font-size: 40px;
+  font-family: Roboto, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0%;
+  margin-bottom: 20px;
+    color: #dfd1c9;
+
+}
+
+.about-text p {
+  font-size: 16px;
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+    color: #dfd1c9;
+
+}
+
+.about-image {
+  flex: 1;
+  text-align: right;
+}
+
+.about-image img {
+  max-width: 100%;
+  border-radius: 8px;
+}

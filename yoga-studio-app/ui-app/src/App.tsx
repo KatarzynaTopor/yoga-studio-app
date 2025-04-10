@@ -5,14 +5,14 @@ import LoginRegister from "./pages/LoginRegister";
 import ScheduleList from "./pages/ScheduleList";
 import InstructorsPage from "./pages/InstructorsPage";
 import MyBookings from "./pages/MyBookings";
+import Homepage from "./pages/Homepage"; // ✅ Proper import
+
 import "./App.css";
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return !!sessionStorage.getItem("accessToken");
   });
-
-
 
   useEffect(() => {
     const token = sessionStorage.getItem("accessToken");
@@ -33,7 +33,8 @@ const App: React.FC = () => {
           <Route path="/schedule" element={<ScheduleList />} />
           <Route path="/instructors" element={<InstructorsPage />} />
           <Route path="/my-account" element={<MyBookings />} />
-          <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/login" />} />
+          <Route path="/homepage" element={<Homepage />} />
+          <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/homepage" />} />
         </Routes>
       </div>
     </Router>
