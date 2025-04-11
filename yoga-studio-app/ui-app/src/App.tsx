@@ -6,6 +6,7 @@ import ScheduleList from "./pages/ScheduleList";
 import InstructorsPage from "./pages/InstructorsPage";
 import MyBookings from "./pages/MyBookings";
 import Homepage from "./pages/Homepage";
+import Classes from "./pages/Classes";
 import Footer from "./components/Footer";
 
 
@@ -36,6 +37,7 @@ const App: React.FC = () => {
           <Route path="/instructors" element={<InstructorsPage />} />
           <Route path="/my-account" element={<MyBookings />} />
           <Route path="/homepage" element={<Homepage />} />
+          <Route path="/classes" element={<Classes />} />
           <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/homepage" />} />
         </Routes>
       </div>

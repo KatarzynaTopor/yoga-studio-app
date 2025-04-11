@@ -67,40 +67,40 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
 
     return (
         <div className="auth-container">
-            <div className="auth-box">
-
-                <div className="auth-tabs">
-                    <button className={`auth-tab ${isLogin ? "active" : ""}`} onClick={() => setIsLogin(true)}>
-                        Log in
-                    </button>
-                    <button className={`auth-tab ${!isLogin ? "active" : ""}`} onClick={() => setIsLogin(false)}>
-                        Register
-                    </button>
-                </div>
-                <form onSubmit={handleSubmit} className="auth-form">
-                    <div className="input-container">
-                        <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} required />
-                    </div>
-                    {!isLogin && (
-                        <div className="input-container">
-                            <input type="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required />
-                        </div>
-                    )}
-                    <div className="input-container">
-                        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
-                    </div>
-                    {!isLogin && (
-                        <div className="input-container">
-                            <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
-                        </div>
-                    )}
-                    {error && <p className="auth-error">{error}</p>}
-                    <button type="submit" className="auth-button">
-                        {isLogin ? "Log in" : "Register"}
-                    </button>
-                </form>
+          <div className="auth-box">
+            <div className="auth-tabs">
+              <button className={`auth-tab ${isLogin ? "active" : ""}`} onClick={() => setIsLogin(true)}>
+                Log in
+              </button>
+              <button className={`auth-tab ${!isLogin ? "active" : ""}`} onClick={() => setIsLogin(false)}>
+                Register
+              </button>
             </div>
+            <form onSubmit={handleSubmit} className="auth-form">
+              <div className="input-container">
+                <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} required />
+              </div>
+              {!isLogin && (
+                <div className="input-container">
+                  <input type="email" name="email" placeholder="E-mail" value={formData.email} onChange={handleChange} required />
+                </div>
+              )}
+              <div className="input-container">
+                <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+              </div>
+              {!isLogin && (
+                <div className="input-container">
+                  <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
+                </div>
+              )}
+              {error && <p className="auth-error">{error}</p>}
+              <button type="submit" className="auth-button">
+                {isLogin ? "Log in" : "Register"}
+              </button>
+            </form>
+          </div>
         </div>
+
     );
 };
 

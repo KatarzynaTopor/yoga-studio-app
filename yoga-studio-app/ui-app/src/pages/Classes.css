@@ -1,0 +1,116 @@
+:root {
+  --green: #859192;
+  --beige: #dfd1c9;
+  --light-beige: #faf8f6;
+  --text: #5a6768;
+}
+
+.classes-page {
+  padding: 40px;
+  background-color: var(--light-beige);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+
+/* === Section Titles === */
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* === Cards === */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  margin-bottom: 150px;
+}
+
+.card {
+  border: 3px solid var(--beige);
+  padding: 32px 20px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: var(--light-beige);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease;
+  width: 300px;          /* węższe */
+  min-height: 280px;     /* dłuższe (wyższe) */
+  margin: 0 auto;        /* wyśrodkowanie w kolumnie */
+}
+
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.level-card .stars {
+  margin-top: 12px;
+  font-size: 18px;
+  color: var(--green);
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 6px;
+  padding: 20px;
+  border: 1px solid var(--beige);
+}
+
+.course-label {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+
+.course-description {
+  font-size: 14px;
+  text-align: left;
+  flex: 1;
+  margin: 0 20px;
+  color: var(--text);
+}
+
+.details-button {
+  background-color: var(--beige);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.details-button:hover {
+  background-color: var(--green);
+  color: white;
+}
