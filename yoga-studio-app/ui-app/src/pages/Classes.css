@@ -12,7 +12,6 @@
   font-family: "Inter", sans-serif;
 }
 
-/* === Section Titles === */
 .section-title {
   font-size: 32px;
   font-weight: 700;
@@ -20,7 +19,6 @@
   text-align: center;
 }
 
-/* === Cards === */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -36,11 +34,10 @@
   background-color: var(--light-beige);
   box-shadow: 0 4px 8px rgba(0,0,0,0.03);
   transition: transform 0.3s ease;
-  width: 300px;          /* węższe */
-  min-height: 280px;     /* dłuższe (wyższe) */
-  margin: 0 auto;        /* wyśrodkowanie w kolumnie */
+  width: 300px;
+  min-height: 280px;
+  margin: 0 auto;
 }
-
 
 .card:hover {
   transform: translateY(-4px);
