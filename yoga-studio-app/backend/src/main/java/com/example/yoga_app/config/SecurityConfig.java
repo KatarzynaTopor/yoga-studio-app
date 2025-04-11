@@ -37,8 +37,15 @@ public class SecurityConfig {
                 .and()
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        // PUBLIC ENDPOINTS
                         .requestMatchers("/", "/api/homepage", "/api/schedule", "/api/classes", "/api/instructors", "/api/levels", "/api/yoga-classes", "/api/courses", "/uploads/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+
+                        // TEACHER ROLE ENDPOINTS
+                        .requestMatchers("/api/schedules/**").hasRole("TEACHER")   // <- tylko nauczyciel może dodać/zarządzać zajęciami
+                        .requestMatchers("/api/bookings/**").hasRole("TEACHER")    // <- np. GET zapisanych użytkowników
+
+                        // AUTHENTICATED ACCESS
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -49,7 +56,6 @@ public class SecurityConfig {
                 )
                 .build();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -64,7 +70,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ **CORS Configuration to Allow Frontend Requests**
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

@@ -7,6 +7,7 @@ import com.example.yoga_app.exception.ValidationException;
 import com.example.yoga_app.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.util.HashMap;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class UserRegistrationService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Set.of("USER")); // przypisz domyślną rolę
 
         return userRepository.save(user);
     }
-
 }

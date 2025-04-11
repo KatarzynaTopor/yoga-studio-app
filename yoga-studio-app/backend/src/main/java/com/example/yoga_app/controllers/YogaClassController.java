@@ -6,6 +6,7 @@ import com.example.yoga_app.repository.LevelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class YogaClassController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> addYogaClass(@RequestBody YogaClass yogaClass) {
         if (yogaClass.getLevel() != null) {
             UUID levelId = yogaClass.getLevel().getId();

@@ -18,6 +18,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 import java.io.IOException;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/instructors")
@@ -41,6 +43,7 @@ public class InstructorsController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<Instructor> addInstructor(
             @RequestPart("instructor") Instructor instructor,
             @RequestPart("image") MultipartFile image

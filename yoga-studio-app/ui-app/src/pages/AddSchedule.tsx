@@ -1,65 +1,132 @@
 import React, { useState } from "react";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/api/schedule";
+const AddSchedule: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [scheduleTime, setScheduleTime] = useState("");
+  const [capacity, setCapacity] = useState(20);
+  const [location, setLocation] = useState("");
+  const [room, setRoom] = useState("");
+  const [duration, setDuration] = useState(60);
+  const [instructorId, setInstructorId] = useState("");
 
-const AddSchedule = () => {
-    const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        instructor: "",
-        scheduleTime: "",
-        capacity: 10
-    });
+  const token = sessionStorage.getItem("accessToken");
 
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const body = {
+      title,
+      description,
+      scheduleTime,
+      capacity,
+      location,
+      room,
+      duration,
+      instructorId,
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError("");
-        setSuccess(false);
+    try {
+      const response = await fetch("http://localhost:8000/api/schedule", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
 
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...formData, capacity: Number(formData.capacity) })
-            });
+      if (response.ok) {
+        alert("Schedule added successfully.");
+      } else {
+        const data = await response.json();
+        alert(data.message || "Failed to create schedule.");
+      }
+    } catch (err) {
+      console.error("Error creating schedule:", err);
+      alert("An error occurred.");
+    }
+  };
 
-            if (response.ok) {
-                setSuccess(true);
-                setFormData({ title: "", description: "", instructor: "", scheduleTime: "", capacity: 10 });
-            } else {
-                setError("Failed to add schedule.");
-            }
-        } catch (err) {
-            setError("Something went wrong.");
-        }
-    };
-
-    return (
-        <div className="auth-container">
-            <div className="auth-box">
-                <h2>Add New Schedule</h2>
-                <form onSubmit={handleSubmit} className="auth-form">
-                    <input name="title" placeholder="Title" value={formData.title} onChange={handleChange} required />
-                    <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
-                    <input name="instructor" placeholder="Instructor" value={formData.instructor} onChange={handleChange} required />
-                    <input type="datetime-local" name="scheduleTime" value={formData.scheduleTime} onChange={handleChange} required />
-                    <input type="number" name="capacity" placeholder="Capacity" value={formData.capacity} onChange={handleChange} required />
-
-                    {error && <p className="auth-error">{error}</p>}
-                    {success && <p style={{ color: "green" }}>Schedule added!</p>}
-
-                    <button type="submit" className="auth-button">Add Schedule</button>
-                </form>
-            </div>
+  return (
+    <div>
+      <h2>Add New Schedule</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-    );
+        <div>
+          <input
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="datetime-local"
+            value={scheduleTime}
+            onChange={(e) => setScheduleTime(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder="Capacity"
+            value={capacity}
+            onChange={(e) => setCapacity(Number(e.target.value))}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Room"
+            value={room}
+            onChange={(e) => setRoom(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder="Duration (minutes)"
+            value={duration}
+            onChange={(e) => setDuration(Number(e.target.value))}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Instructor ID"
+            value={instructorId}
+            onChange={(e) => setInstructorId(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Add Schedule</button>
+      </form>
+    </div>
+  );
 };
 
 export default AddSchedule;

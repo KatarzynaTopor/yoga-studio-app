@@ -5,6 +5,7 @@ import com.example.yoga_app.repository.LevelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class LevelController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Level> addLevel(@RequestBody Level level) {
         Level saved = levelRepository.save(level);
         return ResponseEntity.ok(saved);

@@ -1,0 +1,18 @@
+.teacher-panel {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.schedule-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.schedule-form input,
+.schedule-form select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}

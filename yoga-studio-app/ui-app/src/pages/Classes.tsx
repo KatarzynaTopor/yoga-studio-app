@@ -25,6 +25,7 @@ const classTypes = [
 
 const Classes: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -33,7 +34,6 @@ const Classes: React.FC = () => {
         if (!res.ok) throw new Error(`Status ${res.status}`);
         const data = await res.json();
         setCourses(data);
-        console.log("Courses fetched:", data);
       } catch (err) {
         console.error("Failed to fetch courses:", err);
       }
@@ -87,11 +87,30 @@ const Classes: React.FC = () => {
                 {course.yogaClass}, {course.level} Level <br />
                 {course.instructor} | Duration: {course.duration}
               </div>
-              <button className="details-button">SEE DETAILS</button>
+              <button
+                className="details-button"
+                onClick={() => setSelectedCourse(course)}
+              >
+                SEE DETAILS
+              </button>
             </div>
           ))}
         </div>
       </section>
+
+      {/* === MODAL === */}
+      {selectedCourse && (
+        <div className="modal-backdrop" onClick={() => setSelectedCourse(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>{selectedCourse.title}</h2>
+            <p><strong>Style:</strong> {selectedCourse.yogaClass}</p>
+            <p><strong>Level:</strong> {selectedCourse.level}</p>
+            <p><strong>Instructor:</strong> {selectedCourse.instructor}</p>
+            <p><strong>Duration:</strong> {selectedCourse.duration}</p>
+            <button className="close-button" onClick={() => setSelectedCourse(null)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

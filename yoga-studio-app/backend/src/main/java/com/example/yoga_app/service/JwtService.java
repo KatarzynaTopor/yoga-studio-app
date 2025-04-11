@@ -1,5 +1,6 @@
 package com.example.yoga_app.service;
 
+import com.example.yoga_app.entity.User;
 import java.time.Duration;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +17,14 @@ public class JwtService {
 
     private final JwtEncoder jwtEncoder;
 
-    public String generateToken(final String username) {
+    public String generateToken(final User user) {
         final var claimsSet = JwtClaimsSet.builder()
-                .subject(username)
+                .subject(user.getUsername())
+                .claim("roles", user.getRoles())
                 .issuer(issuer)
                 .expiresAt(Instant.now().plus(ttl))
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
     }
-
 }

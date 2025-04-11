@@ -25,9 +25,8 @@ public class AuthenticationService {
         User user = userRepository.findByUsername(request.username())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // ✅ Użyj username, jeśli metoda wymaga Stringa
-        String token = jwtService.generateToken(user.getUsername());
+        String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponseDto(token, user.getId(), user.getUsername());
+        return new AuthenticationResponseDto(token, user.getId(), user.getUsername(), user.getRoles());
     }
 }
