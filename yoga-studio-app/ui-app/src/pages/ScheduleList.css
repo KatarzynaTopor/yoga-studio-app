@@ -1,3 +1,11 @@
+:root {
+  --beige: rgba(223, 209, 201, 1);
+  --green: rgba(133, 145, 146, 1);
+  --grey-blue: rgba(201, 209, 223, 1);
+  --light-beige: rgba(250, 248, 246, 1);
+  --light-green: rgba(146, 156, 157, 1);
+}
+
 .schedule-container {
   padding: 20px;
   max-width: 1000px;
@@ -15,7 +23,7 @@
   margin: 10px auto 30px;
   display: block;
   padding: 10px 20px;
-  background-color: #859192;
+  background-color: var(--green);
   color: white;
   border: none;
   border-radius: 6px;
@@ -25,7 +33,7 @@
 }
 
 .refresh-button:hover {
-  background-color: #748385;
+  background-color: #FAF8F6;
 }
 
 .schedule-list {
@@ -38,8 +46,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #fdfdfd;
-  border: 1px solid #ddd;
+  background-color: #859192;
+  border: 1px solid var(--green);
   border-radius: 10px;
   padding: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -95,7 +103,7 @@
 
 .capacity-fill {
   height: 100%;
-  background-color: #859192;
+  background-color: var(--green);
 }
 
 .capacity-text {
@@ -112,19 +120,30 @@
 }
 
 .sign-up-button {
-  padding: 8px 16px;
-  background-color: #859192;
-  border: none;
-  color: white;
+  background-color: #C9D1DF !important;
+  border: 2px solid #ffffff;
   border-radius: 6px;
+  height: 42px;
+  width: 160px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
+
+
 .sign-up-button:hover {
-  background-color: #748385;
+  background-color: #7c8889;
+  border-color: #ffffff;
+  transform: scale(1.03);
 }
+
 
 .booking-message {
   font-size: 12px;
@@ -133,8 +152,7 @@
   text-align: right;
 }
 
-/* Twoje przyciski i nawigacja tygodniowa */
-
+/* === DAY PICKER === */
 .day-picker-wrapper {
   display: flex;
   align-items: center;
@@ -152,7 +170,7 @@
 }
 
 .day-button {
-  border: 1px solid #d8cbc4;
+  border: 2px solid var(--light-green);
   background-color: transparent;
   padding: 10px 14px;
   border-radius: 6px;
@@ -163,11 +181,11 @@
 }
 
 .day-button:hover {
-  background-color: #dfd1c9;
+  background-color: #FAF8F6 !important;
 }
 
 .day-button.active {
-  background-color: #859192;
+  background-color: var(--green) !important;
   color: white;
   font-weight: bold;
 }
@@ -185,7 +203,7 @@
 .week-arrow {
   font-size: 24px;
   padding: 6px 14px;
-  background-color: #859192;
+  background-color: var(--green);
   border: none;
   color: white;
   cursor: pointer;
@@ -197,4 +215,3 @@
 .week-arrow:hover {
   background-color: #748385;
 }
-

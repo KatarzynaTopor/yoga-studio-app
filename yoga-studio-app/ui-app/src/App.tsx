@@ -5,7 +5,9 @@ import LoginRegister from "./pages/LoginRegister";
 import ScheduleList from "./pages/ScheduleList";
 import InstructorsPage from "./pages/InstructorsPage";
 import MyBookings from "./pages/MyBookings";
-import Homepage from "./pages/Homepage"; // ✅ Proper import
+import Homepage from "./pages/Homepage";
+import Footer from "./components/Footer";
+
 
 import "./App.css";
 
@@ -37,8 +39,11 @@ const App: React.FC = () => {
           <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/homepage" />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
+
   );
+
 };
 
 export default App;

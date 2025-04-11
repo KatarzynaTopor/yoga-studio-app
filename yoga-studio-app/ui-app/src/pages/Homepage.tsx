@@ -27,7 +27,6 @@ const Homepage: React.FC = () => {
           </button>
         </div>
 
-        {/* Logo w prawym dolnym rogu */}
         <div className="hero-logo-wrapper">
           <img className="hero-logo" src={heroImage} alt="Logo" />
         </div>

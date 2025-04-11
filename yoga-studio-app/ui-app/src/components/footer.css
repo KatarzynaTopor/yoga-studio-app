@@ -1,0 +1,78 @@
+:root {
+  --beige: rgba(223, 209, 201, 1);
+  --green: rgba(133, 145, 146, 1);
+  --grey-blue: rgba(201, 209, 223, 1);
+  --light-beige: rgba(250, 248, 246, 1);
+  --light-green: rgba(146, 156, 157, 1);
+}
+
+/* FOOTER STYLING */
+.footer {
+  background-color: var(--light-beige);
+  padding: 60px 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-family: "Roboto", sans-serif;
+  color: var(--beige);
+}
+
+.footer-left {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.footer-visit .visit-title,
+.footer-contact .contact-title,
+.footer-contact .hours-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.64px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.footer-visit .visit-text,
+.footer-contact .contact-text,
+.footer-contact .hours-text {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.footer-right {
+  display: flex;
+  gap: 80px;
+}
+
+.footer-links,
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-heading {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* Style placeholder links */
+.footer-links a,
+.footer-social a {
+  color: var(--beige);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-social a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

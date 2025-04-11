@@ -62,21 +62,21 @@ const ScheduleList: React.FC = () => {
       if (response.ok) {
         setBookingStatus((prev) => ({
           ...prev,
-          [scheduleId]: "✅ Signed up successfully!",
+          [scheduleId]: " Signed up successfully!",
         }));
         fetchSchedules();
       } else {
         const errorText = await (response?.text?.() ?? "An error occurred.");
         setBookingStatus((prev) => ({
           ...prev,
-          [scheduleId]: `❌ ${errorText}`,
+          [scheduleId]: ` ${errorText}`,
         }));
       }
     } catch (error) {
       console.error(error);
       setBookingStatus((prev) => ({
         ...prev,
-        [scheduleId]: "❌ An error occurred.",
+        [scheduleId]: " An error occurred.",
       }));
     }
   };
@@ -126,7 +126,6 @@ const ScheduleList: React.FC = () => {
         </button>
       </div>
 
-      <h1 className="page-title">Class Schedule</h1>
 
       <button className="refresh-button" onClick={fetchSchedules}>
         Refresh Schedule

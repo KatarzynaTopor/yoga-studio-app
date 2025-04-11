@@ -1,125 +1,140 @@
 :root {
-  --font-family-roboto: "Roboto", sans-serif;
-  --font-family-inter: "Inter", sans-serif;
-  --green: rgba(133, 145, 146, 1);
-  --light-beige: rgba(250, 248, 246, 1);
-  --beige: rgba(223, 209, 201, 1);
-  --grey-blue: rgba(201, 209, 223, 1);
-  --light-green: rgba(146, 156, 157, 1);
-  --text-white: rgba(255, 255, 255, 1);
-  --text-black: rgba(0, 0, 0, 0.54);
+  --font-family: "Inter", sans-serif;
+  --green: #859192;
+  --light-green: #929c9d;
+  --light-beige: #faf8f6;
+  --beige: #dfd1c9;
+  --text: #5a6768;
+  --white: #ffffff;
 }
 
-body {
-  font-family: var(--font-family-inter);
-  background-color: var(--light-beige);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
 
-/* Main Authentication Container */
+
+/* === Container === */
 .auth-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-}
-
-/* Authentication Box */
-.auth-box {
-  background-color: var(--beige);
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  width: 400px;
+  position: fixed; /* ważne */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--light-beige);
+  border: 2px solid var(--light-green);
+  border-radius: 8px;
+  padding: 40px 30px;
+  width: 500px;
   max-width: 90%;
-  text-align: center;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
-/* Tabs (Login & Register) */
+
+/* === Tabs === */
 .auth-tabs {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .auth-tab {
   flex: 1;
-  padding: 10px;
-  background: var(--light-green);
-  border: none;
-  color: var(--text-white);
-  font-weight: bold;
+  padding-bottom: 8px;
   font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: 0.3s ease;
+  position: relative;
+  transition: color 0.3s;
 }
 
 .auth-tab.active {
-  background: var(--green);
+  color: var(--light-green);
 }
 
-.auth-tab:hover {
-  opacity: 0.9;
+.auth-tab::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: var(--light-green);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Form Inputs */
+.auth-tab.active::after {
+  opacity: 1;
+}
+
+/* === Form === */
 .auth-form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
 .input-container {
-  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background-color: transparent;
 }
 
 .input-container input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid var(--light-green);
-  border-radius: 5px;
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid var(--beige);
+  border-radius: 6px;
+  background-color: transparent;
   outline: none;
-  background: var(--light-beige);
+  color: var(--text);
+  font-family: var(--font-family);
 }
 
 .input-container input:focus {
-  border-color: var(--green);
+  border-color: var(--light-green);
 }
 
-/* Error Messages */
-.auth-error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
+.input-container svg {
+  color: var(--light-green);
+  font-size: 20px;
 }
 
-/* Submit Button */
+/* === Button === */
 .auth-button {
-  background: var(--green);
-  color: var(--text-white);
-  font-size: 16px;
+  margin-top: 15px;
+  padding: 12px;
+  font-size: 15px;
   font-weight: bold;
-  padding: 10px;
+  color: var(--white);
+  background-color: var(--light-green);
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .auth-button:hover {
-  background: var(--light-green);
+  background-color: var(--light-green);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .auth-box {
-    width: 90%;
-    padding: 20px;
+/* === Error === */
+.auth-error {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* === Responsive === */
+@media (max-width: 500px) {
+  .auth-container {
+    padding: 30px 20px;
+    width: 95%;
   }
 
   .auth-tab {
