@@ -1,111 +1,84 @@
 :root {
-  --font-family-roboto: "Roboto", sans-serif;
-  --font-family-inter: "Inter", sans-serif;
-  --green: rgba(133, 145, 146, 1);
-  --light-beige: rgba(250, 248, 246, 1);
-  --beige: rgba(223, 209, 201, 1);
-  --grey-blue: rgba(201, 209, 223, 1);
-  --light-green: rgba(146, 156, 157, 1);
-  --text-white: rgba(255, 255, 255, 1);
-  --text-black: rgba(0, 0, 0, 0.54);
+  --green: #859192;
+  --light-green: #929c9d;
+  --light-beige: #faf8f6;
+  --beige: #dfd1c9;
+  --text: #5a6768;
+  --white: #ffffff;
 }
 
-/* 🧱 Global Reset */
-body {
-  font-family: var(--font-family-inter);
-  background-color: var(--light-beige);
-  margin: 0;
-  padding: 0;
-}
-
-/* 📦 Wrapper with padding for Navbar space */
+/* --- Overall Container --- */
 .add-schedule-container {
-  padding-top: 100px;
+  background-color: var(--light-beige);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: var(--light-beige);
+  padding: 60px 20px;
+  font-family: "Inter", sans-serif;
 }
 
-/* 🧾 Form Box */
-.add-schedule-box {
-  background-color: var(--beige);
-  padding: 30px 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  width: 500px;
-  max-width: 90%;
-}
-
-.add-schedule-box h2 {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 25px;
-  color: var(--text-black);
-}
-
-/* 📝 Form Style */
+/* --- Form Box --- */
 .add-schedule-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  background-color: var(--white);
+  border: 2px solid var(--beige);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 550px;
 }
 
-.add-schedule-form input,
-.add-schedule-form textarea {
-  padding: 12px;
-  font-size: 16px;
-  font-family: var(--font-family-inter);
+/* --- Title --- */
+.page-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--green);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* --- Input Fields --- */
+.input, .textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--beige);
+  border-radius: 8px;
   background-color: var(--light-beige);
-  border: 1px solid var(--light-green);
-  border-radius: 5px;
-  resize: none;
+  font-size: 15px;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  margin-bottom: 20px;
+  transition: border-color 0.3s;
 }
 
-.add-schedule-form input:focus,
-.add-schedule-form textarea:focus {
-  border-color: var(--green);
+.input:focus, .textarea:focus {
   outline: none;
+  border-color: var(--light-green);
 }
 
-/* ✅ Button */
-.auth-button {
-  background: var(--green);
-  color: var(--text-white);
+/* --- Textarea Special --- */
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* --- Submit Button --- */
+.submit-button {
+  width: 100%;
+  background-color: var(--green);
+  color: var(--white);
+  padding: 14px;
   font-size: 16px;
   font-weight: bold;
-  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background 0.3s;
 }
 
-.auth-button:hover {
-  background: var(--light-green);
+.submit-button:hover {
+  background-color: var(--light-green);
 }
 
-/* 🔺 Messages */
-.auth-error {
-  color: red;
-  font-size: 14px;
-  text-align: center;
-}
 
-.success-message {
-  color: green;
-  font-size: 14px;
-  text-align: center;
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .add-schedule-box {
-    padding: 20px;
-  }
-
-  .auth-button {
-    font-size: 14px;
-  }
-}

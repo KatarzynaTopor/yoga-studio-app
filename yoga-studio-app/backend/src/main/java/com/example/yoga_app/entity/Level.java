@@ -14,7 +14,7 @@ public class Level {
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    private String name; // e.g. Beginner, Intermediate
+    private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;

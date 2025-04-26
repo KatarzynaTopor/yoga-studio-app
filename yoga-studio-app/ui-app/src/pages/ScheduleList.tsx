@@ -6,7 +6,6 @@ import {
   addDays,
   startOfToday,
   addWeeks,
-  subWeeks,
 } from "date-fns";
 import "./ScheduleList.css";
 
@@ -126,7 +125,6 @@ const ScheduleList: React.FC = () => {
         </button>
       </div>
 
-
       <button className="refresh-button" onClick={fetchSchedules}>
         Refresh Schedule
       </button>
@@ -157,10 +155,17 @@ const ScheduleList: React.FC = () => {
                     {s.location},<br />
                     {s.room}
                   </div>
+
                   <div className="schedule-info">
                     <div className="schedule-title">{s.title}</div>
                     <div className="schedule-instructor">{s.instructorName}</div>
+
+                    {/* 🆕 Description added here */}
+                    <div className="schedule-description">
+                      {s.description}
+                    </div>
                   </div>
+
                   <div className="booking-progress">
                     <div className="capacity-bar">
                       <div

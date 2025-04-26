@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./AddSchedule.css";
+
+const CLASS_OPTIONS = [
+  "Hatha Yoga",
+  "Vinyasa Yoga",
+  "Ashtanga Yoga",
+  "Yin Yoga",
+];
+
+const ROOM_OPTIONS = ["206", "207", "208", "501"];
+const LOCATION_OPTIONS = ["Krakow Studio", "Warsaw Studio"];
+const LEVEL_OPTIONS = ["Beginner", "Beginner +", "Intermediate", "Advanced"];
 
 const AddSchedule: React.FC = () => {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(CLASS_OPTIONS[0]);
   const [description, setDescription] = useState("");
   const [scheduleTime, setScheduleTime] = useState("");
   const [capacity, setCapacity] = useState(20);
-  const [location, setLocation] = useState("");
-  const [room, setRoom] = useState("");
+  const [location, setLocation] = useState(LOCATION_OPTIONS[0]);
+  const [room, setRoom] = useState(ROOM_OPTIONS[0]);
   const [duration, setDuration] = useState(60);
+  const [level, setLevel] = useState(LEVEL_OPTIONS[0]);
   const [instructorId, setInstructorId] = useState<string>("");
 
   useEffect(() => {
@@ -19,13 +32,13 @@ const AddSchedule: React.FC = () => {
 
     if (role !== "TEACHER") {
       alert("Only instructors can add schedules.");
-      navigate("/homepage"); // 🚪 send normal users to homepage
+      navigate("/homepage");
       return;
     }
 
     if (!storedInstructorId) {
       alert("Instructor profile missing. Please contact administrator.");
-      navigate("/teacher-panel"); // 🛠️ maybe let teacher see their panel
+      navigate("/teacher-panel");
       return;
     }
 
@@ -52,9 +65,8 @@ const AddSchedule: React.FC = () => {
       location,
       room,
       duration,
+      level,
     };
-
-    console.log("🚀 Submitting schedule:", body);
 
     try {
       const response = await fetch("http://localhost:8000/api/schedule", {
@@ -81,17 +93,18 @@ const AddSchedule: React.FC = () => {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6">Add New Schedule</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="input"
-        />
+    <div className="add-schedule-container">
+      <form onSubmit={handleSubmit} className="add-schedule-form">
+        <h2 className="page-title">Add New Schedule</h2>
+
+        <select value={title} onChange={(e) => setTitle(e.target.value)} className="input" required>
+          {CLASS_OPTIONS.map((cls) => (
+            <option key={cls} value={cls}>
+              {cls}
+            </option>
+          ))}
+        </select>
+
         <textarea
           placeholder="Description"
           value={description}
@@ -99,6 +112,7 @@ const AddSchedule: React.FC = () => {
           required
           className="textarea"
         />
+
         <input
           type="datetime-local"
           value={scheduleTime}
@@ -106,6 +120,31 @@ const AddSchedule: React.FC = () => {
           required
           className="input"
         />
+
+        <select value={location} onChange={(e) => setLocation(e.target.value)} className="input" required>
+          {LOCATION_OPTIONS.map((loc) => (
+            <option key={loc} value={loc}>
+              {loc}
+            </option>
+          ))}
+        </select>
+
+        <select value={room} onChange={(e) => setRoom(e.target.value)} className="input" required>
+          {ROOM_OPTIONS.map((r) => (
+            <option key={r} value={r}>
+              {r}
+            </option>
+          ))}
+        </select>
+
+        <select value={level} onChange={(e) => setLevel(e.target.value)} className="input" required>
+          {LEVEL_OPTIONS.map((lvl) => (
+            <option key={lvl} value={lvl}>
+              {lvl}
+            </option>
+          ))}
+        </select>
+
         <input
           type="number"
           placeholder="Capacity"
@@ -115,22 +154,7 @@ const AddSchedule: React.FC = () => {
           required
           className="input"
         />
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-          className="input"
-        />
-        <input
-          type="text"
-          placeholder="Room"
-          value={room}
-          onChange={(e) => setRoom(e.target.value)}
-          required
-          className="input"
-        />
+
         <input
           type="number"
           placeholder="Duration (minutes)"
@@ -140,7 +164,8 @@ const AddSchedule: React.FC = () => {
           required
           className="input"
         />
-        <button type="submit" className="btn btn-primary">
+
+        <button type="submit" className="submit-button">
           Add Schedule
         </button>
       </form>
