@@ -9,8 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
@@ -27,6 +27,12 @@ public class AuthenticationService {
 
         String token = jwtService.generateToken(user);
 
-        return new AuthenticationResponseDto(token, user.getId(), user.getUsername(), user.getRoles());
+        return new AuthenticationResponseDto(
+                token,
+                user.getId(),
+                user.getUsername(),
+                user.getRoles(),
+                user.getInstructor() != null ? user.getInstructor().getId() : null
+        );
     }
 }

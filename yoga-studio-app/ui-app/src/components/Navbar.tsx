@@ -5,6 +5,7 @@ import "./Navbar.css";
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const isAuthenticated = !!sessionStorage.getItem("accessToken");
+    const userRole = sessionStorage.getItem("role");
 
     const handleBookClick = () => {
         if (isAuthenticated) {
@@ -27,7 +28,15 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="nav-section nav-right">
-                <Link to="/my-account" className="nav-link">My Account</Link>
+                {isAuthenticated && userRole === "TEACHER" ? (
+                    <Link to="/teacher-panel" className="nav-link">
+                        Teacher Panel
+                    </Link>
+                ) : (
+                    <Link to="/my-account" className="nav-link">
+                        My Account
+                    </Link>
+                )}
                 <button className="book-class-button" onClick={handleBookClick}>
                     Book a Class
                 </button>

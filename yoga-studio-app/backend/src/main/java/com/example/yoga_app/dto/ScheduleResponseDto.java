@@ -9,6 +9,7 @@ public record ScheduleResponseDto(
         String description,
         LocalDateTime scheduleTime,
         int capacity,
+        UUID instructorId,
         String instructorName,
         String location,
         String room,

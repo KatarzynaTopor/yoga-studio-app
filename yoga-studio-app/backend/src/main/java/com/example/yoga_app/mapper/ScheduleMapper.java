@@ -5,6 +5,7 @@ import com.example.yoga_app.entity.Schedule;
 import com.example.yoga_app.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import java.util.UUID;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,12 +25,14 @@ public class ScheduleMapper {
                 schedule.getDescription(),
                 schedule.getScheduleTime(),
                 schedule.getCapacity(),
+                schedule.getInstructor().getId(),
                 schedule.getInstructor().getName(),
                 schedule.getLocation(),
                 schedule.getRoom(),
                 schedule.getDuration(),
                 booked
         );
+
     }
 
     public List<ScheduleResponseDto> toDtoList(List<Schedule> schedules) {

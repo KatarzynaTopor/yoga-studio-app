@@ -104,7 +104,7 @@ const MyBookings: React.FC = () => {
       </div>
 
       <button className="refresh-button" onClick={fetchBookings}>
-        Odśwież listę zajęć
+        Refresh List of Classes
       </button>
 
       <button

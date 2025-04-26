@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import java.util.UUID;
+
 
 import java.util.List;
 
@@ -30,6 +32,13 @@ public class ScheduleController {
     public ResponseEntity<Void> createSchedule(@Valid @RequestBody ScheduleRequestDto dto) {
         scheduleService.createSchedule(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('TEACHER')")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable UUID id) {
+        scheduleService.deleteSchedule(id);
+        return ResponseEntity.noContent().build();
     }
 
 

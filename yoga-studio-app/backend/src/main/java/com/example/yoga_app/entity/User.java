@@ -46,6 +46,10 @@ public class User {
     @Column(name = "role")
     private Set<String> roles;
 
+    @ManyToOne
+    @JoinColumn(name = "instructor_id")
+    private Instructor instructor;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

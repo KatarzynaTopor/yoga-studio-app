@@ -47,22 +47,27 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
             const data = await response.json();
 
             if (response.ok) {
-              if (isLogin) {
-                sessionStorage.setItem("accessToken", data.token);
-                sessionStorage.setItem("userId", data.userId);
-                sessionStorage.setItem("role", data.roles[0]);
-                if (data.roles && data.roles.length > 0) {
-                  sessionStorage.setItem("role", data.roles[0]);
-                }
+                if (isLogin) {
+                    // ✅ Save token and user info
+                    sessionStorage.setItem("accessToken", data.token);
+                    sessionStorage.setItem("userId", data.userId);
+                    sessionStorage.setItem("username", data.username);
 
-                setIsAuthenticated(true);
-                navigate("/schedule");
-              } else {
-                alert("Registered successfully! You can now log in.");
-                setIsLogin(true);
-              }
+                    if (data.roles && data.roles.length > 0) {
+                        sessionStorage.setItem("role", data.roles[0]);
+                    }
+                    if (data.instructorId) {
+                        sessionStorage.setItem("instructorId", data.instructorId);
+                    }
+
+                    setIsAuthenticated(true);
+                    navigate("/schedule");
+                } else {
+                    alert("Registered successfully! You can now log in.");
+                    setIsLogin(true);
+                }
             } else {
-            console.log(data);
+                console.error(data);
                 setError(data.message || "An error occurred. Please check your input.");
             }
         } catch (err) {
@@ -106,7 +111,6 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
             </form>
           </div>
         </div>
-
     );
 };
 
