@@ -1,10 +1,8 @@
 package com.example.yoga_app.controllers;
 
 import com.example.yoga_app.dto.BookingDto;
-import com.example.yoga_app.entity.Booking;
 import com.example.yoga_app.entity.Schedule;
 import com.example.yoga_app.entity.User;
-import com.example.yoga_app.repository.BookingRepository;
 import com.example.yoga_app.repository.ScheduleRepository;
 import com.example.yoga_app.repository.UserRepository;
 import com.example.yoga_app.service.BookingService;
@@ -30,10 +28,9 @@ import java.util.UUID;
 @Tag(name = "Booking Controller", description = "Manage user bookings")
 public class BookingController {
 
-    private final BookingRepository bookingRepository;
+    private final BookingService bookingService;
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
-    private final BookingService bookingService;
 
     @Operation(summary = "Book a schedule", description = "User books a class schedule (requires USER role).")
     @ApiResponses(value = {
@@ -48,23 +45,10 @@ public class BookingController {
     public ResponseEntity<?> bookSchedule(@PathVariable UUID id, Authentication authentication) {
         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found"));
 
-        long currentCount = bookingRepository.countBySchedule(schedule);
-
-        if (currentCount >= schedule.getCapacity()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Class is full.");
-        }
-
-        boolean alreadyBooked = bookingRepository.existsByUserAndSchedule(user, schedule);
-        if (alreadyBooked) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Already booked.");
-        }
-
-        bookingService.createBooking(user, schedule); // ✅ używamy BookingService
+        bookingService.createBooking(user, schedule);
         return ResponseEntity.ok("Booked successfully.");
     }
 
@@ -78,21 +62,14 @@ public class BookingController {
     @DeleteMapping("/schedule/{scheduleId}/cancel")
     public ResponseEntity<?> cancelBooking(
             @PathVariable UUID scheduleId,
-            @RequestParam UUID userId,
             Authentication authentication) {
 
         User authUser = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        if (!authUser.getId().equals(userId)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized user");
-        }
-
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found"));
 
         bookingService.cancelBooking(authUser, schedule);
-
         return ResponseEntity.ok("Booking canceled successfully.");
     }
 

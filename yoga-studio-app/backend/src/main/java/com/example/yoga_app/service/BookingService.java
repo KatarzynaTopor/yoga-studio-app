@@ -7,12 +7,15 @@ import com.example.yoga_app.entity.Schedule;
 import com.example.yoga_app.entity.User;
 import com.example.yoga_app.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -74,20 +77,18 @@ public class BookingService {
 
     @Transactional
     public void cancelBooking(User user, Schedule schedule) {
-        bookingRepository.findAllByUser(user).stream()
-                .filter(b -> b.getSchedule().equals(schedule))
-                .findFirst()
-                .ifPresent(booking -> {
-                    bookingRepository.delete(booking);
+        Booking booking = bookingRepository.findByUserAndSchedule(user, schedule)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
 
-                    // Wysyłamy e-mail o wypisaniu
-                    emailService.sendEmail(
-                            user.getEmail(),
-                            "Anulowanie zapisu na zajęcia",
-                            "Cześć " + user.getUsername() + "!<br>Wypisałeś/aś się z zajęć: <strong>" + schedule.getTitle() + "</strong>."
-                    );
-                });
+        bookingRepository.delete(booking);
+
+        emailService.sendEmail(
+                user.getEmail(),
+                "Anulowanie zapisu na zajęcia",
+                "Cześć " + user.getUsername() + "!<br>Wypisałeś/aś się z zajęć: <strong>" + schedule.getTitle() + "</strong>."
+        );
     }
+
 
     @Transactional
     public void cancelScheduleByTeacher(Schedule schedule) {

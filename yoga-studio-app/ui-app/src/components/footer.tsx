@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
         <div className="footer-contact">
           <p className="contact-title">CONTACT US</p>
           <p className="contact-text">
-            Email: info@swallowsnestyoga.com<br />
+            Email: swallowsnestyoga@gmail.com<br />
             Phone: (123) 456-7890
           </p>
           <p className="hours-title">STUDIO HOURS</p>

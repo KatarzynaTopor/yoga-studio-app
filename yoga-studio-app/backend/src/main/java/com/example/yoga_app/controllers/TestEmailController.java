@@ -16,7 +16,7 @@ public class TestEmailController {
     @GetMapping("/email")
     public String sendTestEmail() {
         emailService.sendEmail(
-                "kasiatopor6@gmail.com",
+                "swallowsnestyoga@gmail.com",
                 "Testowy Email",
                 "To jest testowa wiadomość wysłana z backendu :)"
         );

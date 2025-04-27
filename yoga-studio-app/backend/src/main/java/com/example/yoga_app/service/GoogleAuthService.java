@@ -19,7 +19,7 @@ public class GoogleAuthService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
 
-    private static final String CLIENT_ID = "144300940529-unblbgrdcl2kg595b05avgvvgjo81d76.apps.googleusercontent.com"; // <- Wkleisz swoje Client ID z konsoli Google
+    private static final String CLIENT_ID = "383688280967-jq3l3umrhfnvl4s83654jrc1vit0jacf.apps.googleusercontent.com";
 
     public AuthenticationResponseDto authenticate(String idTokenString) {
         try {
@@ -44,7 +44,7 @@ public class GoogleAuthService {
                             User newUser = new User();
                             newUser.setUsername(email);
                             newUser.setEmail(email);
-                            newUser.setPassword(""); // (Google login, nie potrzeba hasła)
+                            newUser.setPassword("");
                             newUser.setRoles(Collections.singleton("USER"));
                             return userRepository.save(newUser);
                         });
