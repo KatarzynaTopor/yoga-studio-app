@@ -12,6 +12,7 @@ import AddSchedule from './pages/AddSchedule';
 import StudentsList from './pages/StudentsList';
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
+import { GoogleOAuthProvider } from '@react-oauth/google'; // <-- dodajemy!
 
 import './App.css';
 
@@ -28,51 +29,29 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Router>
-      <div className="navbar-wrapper">
-        <Navbar />
-      </div>
-      <div className="app-content">
-        <Routes>
-          <Route path="/login" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/register" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path="/schedule" element={<ScheduleList />} />
-          <Route path="/instructors" element={<InstructorsPage />} />
-          <Route path="/my-account" element={<MyBookings />} />
-          <Route path="/homepage" element={<Homepage />} />
-          <Route path="/classes" element={<Classes />} />
-
-          {/* Protected Routes for Teacher */}
-          <Route
-            path="/teacher-panel"
-            element={
-              <ProtectedRoute roles={['TEACHER']}>
-                <TeacherPanel />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/schedule/add"
-            element={
-              <ProtectedRoute roles={['TEACHER']}>
-                <AddSchedule />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/schedule/students"
-            element={
-              <ProtectedRoute roles={['TEACHER']}>
-                <StudentsList />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/homepage" />} />
-        </Routes>
-      </div>
-      <Footer />
-    </Router>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <Router>
+        <div className="navbar-wrapper">
+          <Navbar />
+        </div>
+        <div className="app-content">
+          <Routes>
+            <Route path="/login" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/register" element={<LoginRegister setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/schedule" element={<ScheduleList />} />
+            <Route path="/instructors" element={<InstructorsPage />} />
+            <Route path="/my-account" element={<MyBookings />} />
+            <Route path="/homepage" element={<Homepage />} />
+            <Route path="/classes" element={<Classes />} />
+            <Route path="/teacher-panel" element={<ProtectedRoute roles={['TEACHER']}><TeacherPanel /></ProtectedRoute>} />
+            <Route path="/schedule/add" element={<ProtectedRoute roles={['TEACHER']}><AddSchedule /></ProtectedRoute>} />
+            <Route path="/schedule/students" element={<ProtectedRoute roles={['TEACHER']}><StudentsList /></ProtectedRoute>} />
+            <Route path="/" element={isAuthenticated ? <Navigate to="/schedule" /> : <Navigate to="/homepage" />} />
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
+    </GoogleOAuthProvider>
   );
 };
 

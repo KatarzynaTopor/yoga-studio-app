@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import "./LoginRegister.css";
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/api/auth";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
 interface LoginRegisterProps {
     setIsAuthenticated: (value: boolean) => void;
@@ -48,7 +50,6 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
 
             if (response.ok) {
                 if (isLogin) {
-                    // ✅ Save token and user info
                     sessionStorage.setItem("accessToken", data.token);
                     sessionStorage.setItem("userId", data.userId);
                     sessionStorage.setItem("username", data.username);
@@ -73,6 +74,41 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
         } catch (err) {
             console.error("Error during fetch:", err);
             setError("Something went wrong. Please try again.");
+        }
+    };
+
+    const handleGoogleLogin = async (credentialResponse: any) => {
+        const token = credentialResponse.credential;
+        if (token) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/google-login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    sessionStorage.setItem('accessToken', data.token);
+                    sessionStorage.setItem('userId', data.userId);
+                    sessionStorage.setItem('username', data.username);
+                    if (data.roles?.length) {
+                        sessionStorage.setItem('role', data.roles[0]);
+                    }
+                    if (data.instructorId) {
+                        sessionStorage.setItem('instructorId', data.instructorId);
+                    }
+
+                    setIsAuthenticated(true);
+                    navigate('/schedule');
+                } else {
+                    setError(data.message || "Google login failed");
+                }
+            } catch (error) {
+                console.error('Google login error', error);
+                setError("Something went wrong with Google login");
+            }
         }
     };
 
@@ -109,6 +145,17 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
                 {isLogin ? "Log in" : "Register"}
               </button>
             </form>
+
+            {/* Google Login Section */}
+            <div style={{ marginTop: "20px" }}>
+              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={() => setError("Google login failed")}
+                />
+              </GoogleOAuthProvider>
+            </div>
+
           </div>
         </div>
     );

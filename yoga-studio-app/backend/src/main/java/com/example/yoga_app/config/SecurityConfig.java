@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs.yaml", "/swagger-resources/**").permitAll()
 
 
+
                         // TEACHER ROLE ENDPOINTS
                         .requestMatchers("/api/schedules/**").hasRole("TEACHER")
                         .requestMatchers("/api/bookings/**").hasRole("TEACHER")
