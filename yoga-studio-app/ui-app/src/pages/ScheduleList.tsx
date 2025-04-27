@@ -132,6 +132,7 @@ const ScheduleList: React.FC = () => {
       <div className="schedule-list">
         {schedules
           .filter((s) => isSameDay(new Date(s.scheduleTime), selectedDate))
+          .sort((a, b) => new Date(a.scheduleTime).getTime() - new Date(b.scheduleTime).getTime())
           .map((s) => {
             const time = new Date(s.scheduleTime);
             const percentBooked = Math.min((s.booked / s.capacity) * 100, 100);

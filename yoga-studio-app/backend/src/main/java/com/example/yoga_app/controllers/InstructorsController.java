@@ -70,6 +70,18 @@ public class InstructorsController {
         }
     }
 
+    @Operation(summary = "Delete an instructor", description = "Delete an instructor by ID (requires ADMIN role).")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteInstructor(@PathVariable UUID id) {
+        if (!instructorRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        instructorRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 

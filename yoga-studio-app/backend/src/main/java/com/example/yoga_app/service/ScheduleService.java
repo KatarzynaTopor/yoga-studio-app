@@ -47,7 +47,6 @@ public class ScheduleService {
 
         scheduleRepository.save(schedule);
 
-        // (opcjonalnie, np. do logowania/debugowania)
         long booked = bookingRepository.countBySchedule(schedule);
         System.out.println("Current bookings for new class: " + booked);
     }
@@ -58,12 +57,26 @@ public class ScheduleService {
         return scheduleMapper.toDtoList(scheduleRepository.findAll());
     }
 
+
     @Transactional
     public void deleteSchedule(UUID id) {
-        if (!scheduleRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found");
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found"));
+
+        List<Booking> bookings = bookingRepository.findAllBySchedule(schedule);
+
+        for (Booking booking : bookings) {
+            User user = booking.getUser();
+            emailService.sendEmail(
+                    user.getEmail(),
+                    "Odwołanie zajęć",
+                    "Cześć " + user.getUsername() + ",<br>niestety zajęcia <strong>" + schedule.getTitle() + "</strong> zostały odwołane. Zapraszamy do zapisania się na inne terminy!"
+            );
         }
-        scheduleRepository.deleteById(id);
+
+        bookingRepository.deleteAll(bookings);
+
+        scheduleRepository.delete(schedule);
     }
 
 }
