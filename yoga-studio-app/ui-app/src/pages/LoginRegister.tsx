@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import "./LoginRegister.css";
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/api/auth";
@@ -81,10 +81,10 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
         const token = credentialResponse.credential;
         if (token) {
             try {
-                const response = await fetch(`${API_BASE_URL}/google-login`, {
+                const response = await fetch(`${API_BASE_URL}/oauth2/google`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token })
+                     body: JSON.stringify({ idToken: token })
                 });
 
                 const data = await response.json();
@@ -148,12 +148,10 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ setIsAuthenticated }) => 
 
             {/* Google Login Section */}
             <div style={{ marginTop: "20px" }}>
-              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                 <GoogleLogin
                   onSuccess={handleGoogleLogin}
                   onError={() => setError("Google login failed")}
                 />
-              </GoogleOAuthProvider>
             </div>
 
           </div>

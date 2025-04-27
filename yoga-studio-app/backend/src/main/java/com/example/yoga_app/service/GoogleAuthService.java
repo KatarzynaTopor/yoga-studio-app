@@ -19,7 +19,7 @@ public class GoogleAuthService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
 
-    private static final String CLIENT_ID = "TWOJE_GOOGLE_CLIENT_ID"; // <- Wkleisz swoje Client ID z konsoli Google
+    private static final String CLIENT_ID = "144300940529-unblbgrdcl2kg595b05avgvvgjo81d76.apps.googleusercontent.com"; // <- Wkleisz swoje Client ID z konsoli Google
 
     public AuthenticationResponseDto authenticate(String idTokenString) {
         try {
