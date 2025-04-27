@@ -1,36 +1,59 @@
-# **Swallow’s Nest Yoga Web App**
+#  Swallow's Nest Yoga — Yoga Studio Management App
 
-## **Description**  
-**Swallow’s Nest Yoga Web App** is a platform that enables **yoga class reservations** and **user management**.  
 
-### **Key Features:**  
-- View available yoga courses  
-- Book spots in yoga classes  
-- User login and registration  
-- Notification system (E-mail / SMS)  
-- **Google Calendar API** integration  
+Built with **Spring Boot**, **React**, **PostgreSQL**, and fully **Dockerized**.
 
 ---
 
-## **Technologies**  
+## ✨ Features
 
-### **Frontend (React.js)**  
-- **React.js (Vite/CRA)**  
-- **Tailwind CSS**  
-- **Axios** – handling API requests  
-- **Firebase Auth** – Google login authentication  
-
-### **Backend (Spring Boot + PostgreSQL)**  
-- **Spring Boot (Java)**  
-- **PostgreSQL**   
-- **Spring Security (JWT & OAuth)** – user authentication  
-
----
+-  Secure user authentication with **JWT**
+-  Google OAuth2 login support
+-  Role-based access: **USER**, **TEACHER**, **ADMIN**
+-  Booking system for yoga classes
+-  Email notifications for bookings and class cancellations
+-  Teacher dashboard to create, edit, and delete classes
+-  Swagger API Documentation (OpenAPI 3)
+-  Full Dockerized deployment with Docker Compose
+-  Modern UI built with React + Vite for smooth UX
 
 ---
 
-##  Project structure  
+##  Technology Stack
 
-```
+| Backend         | Frontend            | Database     | Deployment              |
+| --------------- | ------------------- | ------------ | ----------------------- |
+| Spring Boot 3.x | React + TypeScript   | PostgreSQL   | Docker, Docker Compose  |
+| Spring Security | Vite                 | Flyway       | Swagger UI (OpenAPI 3)   |
+| JWT, OAuth2     | React Router         |              |                         |
 
-```
+---
+
+##  Layout of webpages
+
+
+- Home Page
+- Schedule Page
+- Teacher Dashboard
+
+---
+
+
+
+## User Roles and Permissions
+
+| Role         | Permissions            |
+| --------------- | ------------------- | 
+|USER | View classes, Book/Cancel classes   | 
+| TEACHER | Manage own schedules (create, delete)  | 
+| ADMIN     | Full access: manage users, instructors, courses, levels         | 
+
+
+## Email Notifications
+- Booking a class → Confirmation email
+- Canceling a booking → Cancellation email
+- Teacher cancels a class → Notify all booked users
+
+All emails are sent automatically using Gmail SMTP.
+
+
