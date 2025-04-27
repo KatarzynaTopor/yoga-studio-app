@@ -24,7 +24,8 @@ services:
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
       SPRING_MAIL_DEFAULT_ENCODING: UTF-8
-      SPRING_MAIL_FROM: swallowsnestyoga@gmail.com
+      SPRING_MAIL_FROM: ${SPRING_MAIL_USERNAME}
+      GOOGLE_CLIENT_ID: 383688280967-jq3l3umrhfnvl4s83654jrc1vit0jacf.apps.googleusercontent.com
 
 
     depends_on:

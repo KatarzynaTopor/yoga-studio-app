@@ -5,6 +5,7 @@ import com.example.yoga_app.dto.ScheduleResponseDto;
 import com.example.yoga_app.entity.Instructor;
 import com.example.yoga_app.entity.Schedule;
 import com.example.yoga_app.entity.Booking;
+import com.example.yoga_app.entity.User;
 import com.example.yoga_app.mapper.ScheduleMapper;
 import com.example.yoga_app.repository.InstructorRepository;
 import com.example.yoga_app.repository.ScheduleRepository;
@@ -27,6 +28,7 @@ public class ScheduleService {
     private final InstructorRepository instructorRepository;
     private final ScheduleMapper scheduleMapper;
     private final BookingRepository bookingRepository;
+    private final EmailService emailService;
 
 
     public void createSchedule(ScheduleRequestDto dto) {

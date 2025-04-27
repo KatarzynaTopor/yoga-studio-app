@@ -39,7 +39,7 @@ public class JwtConfig {
     }
 
     @Bean
-    @Primary // <-- to jest klucz!
+    @Primary
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }

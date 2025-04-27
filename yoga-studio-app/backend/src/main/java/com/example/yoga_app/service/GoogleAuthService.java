@@ -6,6 +6,7 @@ import com.example.yoga_app.repository.UserRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import org.springframework.beans.factory.annotation.Value;
 import com.google.api.client.json.gson.GsonFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class GoogleAuthService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
 
-    private static final String CLIENT_ID = "383688280967-jq3l3umrhfnvl4s83654jrc1vit0jacf.apps.googleusercontent.com";
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String clientId;
 
     public AuthenticationResponseDto authenticate(String idTokenString) {
         try {
@@ -27,7 +29,7 @@ public class GoogleAuthService {
                     GoogleNetHttpTransport.newTrustedTransport(),
                     GsonFactory.getDefaultInstance()
             )
-                    .setAudience(Collections.singletonList(CLIENT_ID))
+                    .setAudience(Collections.singletonList(clientId))
                     .build();
 
             GoogleIdToken idToken = verifier.verify(idTokenString);

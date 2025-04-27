@@ -26,13 +26,13 @@ public class EmailService {
             helper.setFrom(fromEmail);
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(content, true); // <- UWAGA: "true" = HTML content!
+            helper.setText(content, true);
 
             mailSender.send(message);
 
-            System.out.println("✅ Email sent successfully to: " + to);
+            System.out.println("Email sent successfully to: " + to);
         } catch (MessagingException e) {
-            System.err.println("❌ Failed to send email: " + e.getMessage());
+            System.err.println("Failed to send email: " + e.getMessage());
             e.printStackTrace();
         }
     }

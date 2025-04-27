@@ -105,7 +105,7 @@ public class BookingService {
                     "Odwołanie zajęć",
                     "Cześć " + user.getUsername() + "!<br>Zajęcia <strong>" + schedule.getTitle() + "</strong> zostały odwołane przez nauczyciela."
             );
-            bookingRepository.delete(booking); // opcjonalnie: usuwamy rezerwacje
+            bookingRepository.delete(booking);
         }
     }
 }
