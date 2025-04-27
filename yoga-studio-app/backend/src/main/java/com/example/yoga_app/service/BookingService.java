@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class BookingService {
 
     private final BookingRepository bookingRepository;
-    private final EmailService emailService; // Dodajemy EmailService!
+    private final EmailService emailService;
 
     @Transactional(readOnly = true)
     public List<UserBookingDto> getBookingsForUser(User user) {

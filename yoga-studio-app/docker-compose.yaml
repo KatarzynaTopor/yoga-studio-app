@@ -17,6 +17,16 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
       JWT_PRIVATE_KEY: classpath:jwt/app.key
       JWT_PUBLIC_KEY: classpath:jwt/app.pub
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: kasiatopor6@gmail.com
+      SPRING_MAIL_PASSWORD: nbvkiycccmssdfxe
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
+      SPRING_MAIL_DEFAULT_ENCODING: UTF-8
+      SPRING_MAIL_FROM: kasiatopor6@gmail.com
+
+
     depends_on:
       postgres:
         condition: service_healthy
@@ -43,9 +53,9 @@ services:
         - REACT_APP_BACKEND_URL=http://localhost:8000/api
         - CHOKIDAR_USEPOLLING=true
       volumes:
-        - ./ui-app:/app  # Mapowanie kodu źródłowego
-        - /app/node_modules  # Zapobiega nadpisywaniu `node_modules`
-      command: [ "npm", "start" ]  # Uruchamiamy React w trybie deweloperskim
+        - ./ui-app:/app
+        - /app/node_modules
+      command: [ "npm", "start" ]
 
 
   postgres:

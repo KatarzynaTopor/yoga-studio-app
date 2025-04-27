@@ -1,40 +1,39 @@
 package com.example.yoga_app.controllers;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.example.yoga_app.entity.User;
-import com.example.yoga_app.entity.Schedule;
+import com.example.yoga_app.dto.BookingDto;
 import com.example.yoga_app.entity.Booking;
+import com.example.yoga_app.entity.Schedule;
+import com.example.yoga_app.entity.User;
 import com.example.yoga_app.repository.BookingRepository;
 import com.example.yoga_app.repository.ScheduleRepository;
 import com.example.yoga_app.repository.UserRepository;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import com.example.yoga_app.dto.BookingDto;
 import com.example.yoga_app.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-
-
-import java.util.UUID;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Tag(name = "Booking Controller", description = "Manage user bookings")
 public class BookingController {
 
     private final BookingRepository bookingRepository;
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
-    private final BookingService bookingService; // <-- Dodaj to pole
+    private final BookingService bookingService;
 
     @Operation(summary = "Book a schedule", description = "User books a class schedule (requires USER role).")
     @ApiResponses(value = {
@@ -65,11 +64,7 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Already booked.");
         }
 
-        Booking booking = new Booking();
-        booking.setUser(user);
-        booking.setSchedule(schedule);
-        bookingRepository.save(booking);
-
+        bookingService.createBooking(user, schedule); // ✅ używamy BookingService
         return ResponseEntity.ok("Booked successfully.");
     }
 
@@ -96,10 +91,7 @@ public class BookingController {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Schedule not found"));
 
-        Booking booking = bookingRepository.findByUserAndSchedule(authUser, schedule)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));
-
-        bookingRepository.delete(booking);
+        bookingService.cancelBooking(authUser, schedule);
 
         return ResponseEntity.ok("Booking canceled successfully.");
     }
@@ -113,6 +105,6 @@ public class BookingController {
     @GetMapping("/teacher/{id}")
     @PreAuthorize("hasRole('TEACHER')")
     public List<BookingDto> getBookingsByTeacher(@PathVariable UUID id) {
-        return bookingService.getBookingsByTeacherId(id);  // To wywołanie działa teraz poprawnie
+        return bookingService.getBookingsByTeacherId(id);
     }
 }
