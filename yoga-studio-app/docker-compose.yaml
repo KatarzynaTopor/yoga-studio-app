@@ -8,26 +8,8 @@ services:
     container_name: yoga-backend
     ports:
       - "8000:8000"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: mypassword
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "true"
-      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
-      JWT_PRIVATE_KEY: classpath:jwt/app.key
-      JWT_PUBLIC_KEY: classpath:jwt/app.pub
-      SPRING_MAIL_HOST: smtp.gmail.com
-      SPRING_MAIL_PORT: 587
-      SPRING_MAIL_USERNAME: swallowsnestyoga@gmail.com
-      SPRING_MAIL_PASSWORD: dpjfaxeisxzgbhoi
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
-      SPRING_MAIL_DEFAULT_ENCODING: UTF-8
-      SPRING_MAIL_FROM: ${SPRING_MAIL_USERNAME}
-      GOOGLE_CLIENT_ID: 383688280967-jq3l3umrhfnvl4s83654jrc1vit0jacf.apps.googleusercontent.com
-
-
+    env_file:
+      - .env
     depends_on:
       postgres:
         condition: service_healthy
@@ -42,22 +24,20 @@ services:
       retries: 3
 
   ui-app:
-      build:
-        context: ./ui-app
-        dockerfile: Dockerfile
-      container_name: yoga-frontend
-      ports:
-        - "8080:8080"
-      depends_on:
-        - backend
-      environment:
-        - REACT_APP_BACKEND_URL=http://localhost:8000/api
-        - CHOKIDAR_USEPOLLING=true
-      volumes:
-        - ./ui-app:/app
-        - /app/node_modules
-      command: [ "npm", "start" ]
-
+    build:
+      context: ./ui-app
+      dockerfile: Dockerfile
+    container_name: yoga-frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    env_file:
+      - .env
+    volumes:
+      - ./ui-app:/app
+      - /app/node_modules
+    command: ["npm", "start"]
 
   postgres:
     image: postgres:17
