@@ -5,7 +5,7 @@ Built with **Spring Boot**, **React**, **PostgreSQL**, and fully **Dockerized**.
 
 ---
 
-## ✨ Features
+##  Features
 
 -  Secure user authentication with **JWT**
 -  Google OAuth2 login support
