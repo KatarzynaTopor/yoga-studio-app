@@ -41,9 +41,12 @@ public class SecurityConfig {
                         .requestMatchers("/", "/api/homepage", "/api/schedule", "/api/classes", "/api/instructors", "/api/levels", "/api/yoga-classes", "/api/courses", "/uploads/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs.yaml", "/swagger-resources/**").permitAll()
+
+
                         // TEACHER ROLE ENDPOINTS
-                        .requestMatchers("/api/schedules/**").hasRole("TEACHER")   // <- tylko nauczyciel może dodać/zarządzać zajęciami
-                        .requestMatchers("/api/bookings/**").hasRole("TEACHER")    // <- np. GET zapisanych użytkowników
+                        .requestMatchers("/api/schedules/**").hasRole("TEACHER")
+                        .requestMatchers("/api/bookings/**").hasRole("TEACHER")
 
                         // AUTHENTICATED ACCESS
                         .anyRequest().authenticated()

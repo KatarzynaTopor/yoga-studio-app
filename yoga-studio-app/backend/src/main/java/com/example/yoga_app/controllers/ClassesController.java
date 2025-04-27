@@ -4,6 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +17,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ClassesController {
 
+    @Operation(summary = "Get all classes", description = "Retrieve the list of available yoga class types.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Classes retrieved successfully")
+    })
     @GetMapping
     public ResponseEntity<List<Map<String, String>>> getAllClasses() {
         List<Map<String, String>> classes = List.of(

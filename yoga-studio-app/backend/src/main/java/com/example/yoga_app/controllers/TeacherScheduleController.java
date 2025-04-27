@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +24,11 @@ public class TeacherScheduleController {
 
     private final BookingRepository bookingRepository;
 
+    @Operation(summary = "Get students for a schedule", description = "Retrieve all students enrolled in a given schedule (requires TEACHER role).")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Students retrieved"),
+            @ApiResponse(responseCode = "404", description = "Schedule not found")
+    })
     @GetMapping("/{id}/students")
     public List<UserProfileDto> getEnrolledStudents(@PathVariable UUID id) {
         Schedule schedule = new Schedule();

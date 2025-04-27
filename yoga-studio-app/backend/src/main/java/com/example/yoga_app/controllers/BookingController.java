@@ -15,7 +15,11 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.example.yoga_app.dto.BookingDto;
-import com.example.yoga_app.service.BookingService; // <-- Dodaj ten import
+import com.example.yoga_app.service.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 import java.util.UUID;
 import java.util.List;
@@ -30,6 +34,14 @@ public class BookingController {
     private final UserRepository userRepository;
     private final BookingService bookingService; // <-- Dodaj to pole
 
+    @Operation(summary = "Book a schedule", description = "User books a class schedule (requires USER role).")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully booked"),
+            @ApiResponse(responseCode = "400", description = "Class full or other error"),
+            @ApiResponse(responseCode = "409", description = "Already booked"),
+            @ApiResponse(responseCode = "404", description = "Schedule not found"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+    })
     @PostMapping("/schedule/{id}/book")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> bookSchedule(@PathVariable UUID id, Authentication authentication) {
@@ -59,6 +71,12 @@ public class BookingController {
         return ResponseEntity.ok("Booked successfully.");
     }
 
+    @Operation(summary = "Cancel a booking", description = "User cancels their class booking (requires USER role).")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Booking cancelled successfully"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Booking or Schedule not found"),
+    })
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/schedule/{scheduleId}/cancel")
     public ResponseEntity<?> cancelBooking(
@@ -84,6 +102,12 @@ public class BookingController {
         return ResponseEntity.ok("Booking canceled successfully.");
     }
 
+    @Operation(summary = "Get bookings for a teacher", description = "Teacher retrieves bookings for their classes.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Bookings retrieved successfully"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "404", description = "Teacher not found"),
+    })
     @GetMapping("/teacher/{id}")
     @PreAuthorize("hasRole('TEACHER')")
     public List<BookingDto> getBookingsByTeacher(@PathVariable UUID id) {

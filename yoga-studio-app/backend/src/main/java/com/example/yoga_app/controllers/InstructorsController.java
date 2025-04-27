@@ -19,6 +19,10 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 import java.io.IOException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +31,7 @@ public class InstructorsController {
 
     private final InstructorRepository instructorRepository;
 
+    @Operation(summary = "Get all instructors", description = "Retrieve the list of all yoga instructors.")
     @GetMapping
     public ResponseEntity<List<InstructorDto>> getAllInstructors() {
         List<InstructorDto> result = instructorRepository.findAll().stream()
@@ -42,6 +47,7 @@ public class InstructorsController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Add a new instructor", description = "Create a new instructor profile (requires ADMIN or TEACHER role).")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<Instructor> addInstructor(

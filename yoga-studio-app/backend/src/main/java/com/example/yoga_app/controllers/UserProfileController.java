@@ -10,6 +10,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,12 +23,14 @@ public class UserProfileController {
     private final UserService userService;
     private final UserMapper userMapper;
 
+    @Operation(summary = "Get user profile", description = "Retrieve the authenticated user's profile information.")
     @GetMapping("/user")
     public ResponseEntity<UserProfileDto> getUserProfile(Authentication authentication) {
         var user = userService.getUserByUsername(authentication.getName());
         return ResponseEntity.ok(userMapper.toUserProfileDto(user));
     }
 
+    @Operation(summary = "Update user profile", description = "Update the authenticated user's profile information.")
     @PutMapping("/update_user")
     public ResponseEntity<UserProfileDto> updateUserProfile(
             Authentication authentication,
@@ -34,6 +40,7 @@ public class UserProfileController {
         return ResponseEntity.ok(userMapper.toUserProfileDto(updatedUser));
     }
 
+    @Operation(summary = "Delete user account", description = "Delete the authenticated user's account.")
     @DeleteMapping("/delete_user")
     public ResponseEntity<Void> deleteUserAccount(Authentication authentication) {
         userService.deleteUser(authentication.getName());
