@@ -31,6 +31,7 @@ Built with **Spring Boot**, **React**, **PostgreSQL**, and fully **Dockerized**.
 
 ##  Layout of webpages
 
+![image](https://github.com/user-attachments/assets/999d7e1c-39e0-4406-80e6-a66a456e1e19)
 
 - Home Page
 - Schedule Page
