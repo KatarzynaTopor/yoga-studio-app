@@ -34,10 +34,14 @@ Built with **Spring Boot**, **React**, **PostgreSQL**, and fully **Dockerized**.
 -login/registration page
 ![image](https://github.com/user-attachments/assets/458dc096-fab1-4de6-b414-da9028ec1ca3)
 
-
 - Home Page
+- ![image](https://github.com/user-attachments/assets/1070e2ff-9910-4c62-baf8-97778f2ad926)
+
 - Schedule Page
+- ![image](https://github.com/user-attachments/assets/73508510-a63b-4ad6-bd4e-be9819b6e563)
+
 - Teacher Dashboard
+![image](https://github.com/user-attachments/assets/a8544c5d-cfd2-4834-8e02-1fff474f5739)
 
 ---
 
