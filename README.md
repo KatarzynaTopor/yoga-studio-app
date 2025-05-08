@@ -68,34 +68,26 @@ External adapters: PostgreSQL, RabbitMQ, Swagger
 
 ###  Project Structure
 
-backend/
-├── controller/ # REST endpoints
-├── service/ # Business logic
-├── repository/ # JPA interfaces
-├── entity/ # JPA models
-├── dto/ # Request and response objects
-├── exception/ # Custom exceptions and global handler
-├── seed/ # Data seeders
-├── config/ # Security, Swagger, CORS, etc.
-└── util/ # Converters and helpers
+<pre> backend/ ├── config/ # Security, Swagger, CORS configuration ├── controller/ # REST API endpoints ├── dto/ # Data Transfer Objects (request/response) ├── entity/ # JPA entity classes (database models) ├── exception/ # Global exception handler and custom exceptions ├── repository/ # Spring Data JPA repositories ├── seed/ # Data seeders (e.g. @PostConstruct loaders) ├── service/ # Business logic layer └── util/ # Helper classes and converters </pre>
 
 
 
 ### Data Flow Diagram
 
-[ Client (React) ]
-│
-▼
-[ Controller (Spring REST) ]
-│
-▼
-[ Service Layer ]
-│
-▼
-[ Repository ]
-│
-▼
-[ PostgreSQL DB ]
+[ Frontend (React) ]
+         │
+         ▼
+[ Controller (REST API - Spring) ]
+         │
+         ▼
+[ Service Layer (Business Logic) ]
+         │
+         ▼
+[ Repository (JPA) ]
+         │
+         ▼
+[ PostgreSQL Database ]
+
 
 ## Database Architecture
 ![Untitled (1)](https://github.com/user-attachments/assets/36bcd2d1-93f6-4cf1-90c0-774e029aeb3e)
