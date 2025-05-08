@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class BookingService {
 
     private final BookingRepository bookingRepository;
-    private final EmailService emailService;
+    private final EmailQueueSender emailQueueSender;
 
     @Transactional(readOnly = true)
     public List<UserBookingDto> getBookingsForUser(User user) {
@@ -65,12 +65,7 @@ public class BookingService {
 
         Booking savedBooking = bookingRepository.save(booking);
 
-        // Wysyłamy e-mail potwierdzający zapis
-        emailService.sendEmail(
-                user.getEmail(),
-                "Potwierdzenie zapisu na zajęcia",
-                "Cześć " + user.getUsername() + "!<br>Zapisałeś/aś się na zajęcia: <strong>" + schedule.getTitle() + "</strong>."
-        );
+        emailQueueSender.sendEmailRequest(user.getEmail());
 
         return savedBooking;
     }

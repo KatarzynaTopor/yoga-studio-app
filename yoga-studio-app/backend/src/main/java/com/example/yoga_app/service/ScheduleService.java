@@ -28,7 +28,7 @@ public class ScheduleService {
     private final InstructorRepository instructorRepository;
     private final ScheduleMapper scheduleMapper;
     private final BookingRepository bookingRepository;
-    private final EmailService emailService;
+    private final EmailQueueSender emailQueueSender;
 
 
     public void createSchedule(ScheduleRequestDto dto) {
@@ -69,11 +69,7 @@ public class ScheduleService {
 
         for (Booking booking : bookings) {
             User user = booking.getUser();
-            emailService.sendEmail(
-                    user.getEmail(),
-                    "Odwołanie zajęć",
-                    "Cześć " + user.getUsername() + ",<br>niestety zajęcia <strong>" + schedule.getTitle() + "</strong> zostały odwołane. Zapraszamy do zapisania się na inne terminy!"
-            );
+            emailQueueSender.sendEmailRequest(user.getEmail());
         }
 
         bookingRepository.deleteAll(bookings);
