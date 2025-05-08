@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import com.example.yoga_app.dto.EmailMessage;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -66,9 +68,11 @@ public class BookingService {
         Booking savedBooking = bookingRepository.save(booking);
 
         emailQueueSender.sendEmail(new EmailMessage(
+                user.getEmail(),
                 "Class Booking Confirmation",
                 "Hi " + user.getUsername() + "!<br>You have successfully booked the class: <strong>" + schedule.getTitle() + "</strong>."
         ));
+
 
 
         return savedBooking;
@@ -101,11 +105,11 @@ public class BookingService {
         for (Booking booking : bookings) {
             User user = booking.getUser();
             // Wysyłamy maila do każdego uczestnika
-            emailService.sendEmail(
+            emailQueueSender.sendEmail(new EmailMessage(
                     user.getEmail(),
-                    "Odwołanie zajęć",
-                    "Cześć " + user.getUsername() + "!<br>Zajęcia <strong>" + schedule.getTitle() + "</strong> zostały odwołane przez nauczyciela."
-            );
+                    "Class Cancelled by Instructor",
+                    "Hi " + user.getUsername() + "!<br>The class <strong>" + schedule.getTitle() + "</strong> has been cancelled by the instructor. Feel free to book another session!"
+            ));
             bookingRepository.delete(booking);
         }
     }

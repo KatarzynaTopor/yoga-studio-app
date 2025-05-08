@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import com.example.yoga_app.dto.EmailMessage;
+
 import java.util.UUID;
 
 
@@ -74,6 +76,7 @@ public class ScheduleService {
                     "Class Cancelled by Instructor",
                     "Hi " + user.getUsername() + "!<br>The class <strong>" + schedule.getTitle() + "</strong> has been cancelled by the instructor. Feel free to book another session!"
             ));
+
 
         }
 
