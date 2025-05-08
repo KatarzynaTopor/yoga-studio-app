@@ -161,7 +161,6 @@ const ScheduleList: React.FC = () => {
                     <div className="schedule-title">{s.title}</div>
                     <div className="schedule-instructor">{s.instructorName}</div>
 
-                    {/* 🆕 Description added here */}
                     <div className="schedule-description">
                       {s.description}
                     </div>
