@@ -65,7 +65,11 @@ public class BookingService {
 
         Booking savedBooking = bookingRepository.save(booking);
 
-        emailQueueSender.sendEmailRequest(user.getEmail());
+        emailQueueSender.sendEmail(new EmailMessage(
+                "Class Booking Confirmation",
+                "Hi " + user.getUsername() + "!<br>You have successfully booked the class: <strong>" + schedule.getTitle() + "</strong>."
+        ));
+
 
         return savedBooking;
     }
@@ -77,11 +81,13 @@ public class BookingService {
 
         bookingRepository.delete(booking);
 
-        emailService.sendEmail(
+        emailQueueSender.sendEmail(new EmailMessage(
                 user.getEmail(),
-                "Anulowanie zapisu na zajęcia",
-                "Cześć " + user.getUsername() + "!<br>Wypisałeś/aś się z zajęć: <strong>" + schedule.getTitle() + "</strong>."
-        );
+                "Class Booking Cancelled",
+                "Hi " + user.getUsername() + "!<br>You have cancelled your booking for the class: <strong>" + schedule.getTitle() + "</strong>."
+        ));
+
+
     }
 
 

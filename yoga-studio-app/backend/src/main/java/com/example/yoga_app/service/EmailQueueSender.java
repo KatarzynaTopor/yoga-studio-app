@@ -1,5 +1,6 @@
 package com.example.yoga_app.service;
 
+import com.example.yoga_app.dto.EmailMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ public class EmailQueueSender {
 
     private final AmqpTemplate rabbitTemplate;
 
-    public void sendEmailRequest(String email) {
-        rabbitTemplate.convertAndSend(EMAIL_QUEUE, email);
-        System.out.println(" Sent email task to queue: " + email);
+    public void sendEmail(EmailMessage message) {
+        rabbitTemplate.convertAndSend(EMAIL_QUEUE, message);
+        System.out.println(" Sent email to queue: " + message.to());
     }
 }

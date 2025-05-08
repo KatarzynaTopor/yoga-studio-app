@@ -69,7 +69,12 @@ public class ScheduleService {
 
         for (Booking booking : bookings) {
             User user = booking.getUser();
-            emailQueueSender.sendEmailRequest(user.getEmail());
+            emailQueueSender.sendEmail(new EmailMessage(
+                    user.getEmail(),
+                    "Class Cancelled by Instructor",
+                    "Hi " + user.getUsername() + "!<br>The class <strong>" + schedule.getTitle() + "</strong> has been cancelled by the instructor. Feel free to book another session!"
+            ));
+
         }
 
         bookingRepository.deleteAll(bookings);
