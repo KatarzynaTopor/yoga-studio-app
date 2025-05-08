@@ -18,6 +18,15 @@ Built with **Spring Boot**, **React**, **PostgreSQL**, and fully **Dockerized**.
 -  Modern UI built with React + Vite for smooth UX
 
 ---
+## Database Architecture
+![Untitled (1)](https://github.com/user-attachments/assets/36bcd2d1-93f6-4cf1-90c0-774e029aeb3e)
+Key Many-to-Many Relationships
+- Instructor ↔ Specialty
+An instructor can have multiple specialties, and a specialty can apply to many instructors.
+- User ↔ Course (via Review)
+Users can leave multiple reviews on different courses; each course can be reviewed by many users.
+- User Roles (Set<String> roles)
+A user can have multiple roles (USER, TEACHER, ADMIN), stored in a separate user_roles table.
 
 ##  Technology Stack
 
