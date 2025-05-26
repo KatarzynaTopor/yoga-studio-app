@@ -7,6 +7,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
+RUN npm install -D tailwindcss postcss autoprefixer
+
 # Kopiujemy cały kod
 COPY . .
 EXPOSE 80

@@ -12,7 +12,7 @@ import AddSchedule from './pages/AddSchedule';
 import StudentsList from './pages/StudentsList';
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
-import { GoogleOAuthProvider } from '@react-oauth/google'; // <-- dodajemy!
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import './App.css';
 
