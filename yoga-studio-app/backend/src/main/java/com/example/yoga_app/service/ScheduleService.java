@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.yoga_app.dto.EmailMessage;
+import java.time.LocalDateTime;
+
 
 import java.util.UUID;
 
@@ -58,8 +60,11 @@ public class ScheduleService {
 
     @Transactional
     public List<ScheduleResponseDto> getAllSchedules() {
-        return scheduleMapper.toDtoList(scheduleRepository.findAll());
+        LocalDateTime now = LocalDateTime.now();
+        List<Schedule> futureSchedules = scheduleRepository.findByScheduleTimeAfter(now);
+        return scheduleMapper.toDtoList(futureSchedules);
     }
+
 
 
     @Transactional
