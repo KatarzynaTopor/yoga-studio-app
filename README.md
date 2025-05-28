@@ -68,25 +68,24 @@ External adapters: PostgreSQL, RabbitMQ, Swagger
 
 ###  Project Structure
 
-<pre> backend/ ├── config/ # Security, Swagger, CORS configuration ├── controller/ # REST API endpoints ├── dto/ # Data Transfer Objects (request/response) ├── entity/ # JPA entity classes (database models) ├── exception/ # Global exception handler and custom exceptions ├── repository/ # Spring Data JPA repositories ├── seed/ # Data seeders (e.g. @PostConstruct loaders) ├── service/ # Business logic layer └── util/ # Helper classes and converters </pre>
-
-
+backend/
+config – app configuration (security, Swagger, CORS) <br>
+controller – API endpoints <br>
+dto – request and response data objects <br>
+entity – database models (JPA entities) <br>
+exception – error handling <br>
+repository – database access (JPA repositories) <br>
+seed – initial data loaders <br>
+service – business logic <br>
 
 ### Data Flow Diagram
 
-[ Frontend (React) ]
-         │
-         ▼
-[ Controller (REST API - Spring) ]
-         │
-         ▼
-[ Service Layer (Business Logic) ]
-         │
-         ▼
-[ Repository (JPA) ]
-         │
-         ▼
-[ PostgreSQL Database ]
+Frontend (React) <br>
+Controller (API) <br>
+Service (business logic) <br>
+Repository (database access) <br>
+PostgreSQL (database)
+
 
 
 ## Database Architecture
@@ -134,5 +133,21 @@ A user can have multiple roles (USER, TEACHER, ADMIN), stored in a separate user
 - Teacher cancels a class → Notify all booked users
 
 All emails are sent automatically using Gmail SMTP.
+
+## Eunning the Application with Docker
+This project is fully Dockerized. You can run the entire stack (backend, frontend, and database) using Docker Compose.
+
+Prerequisites
+Docker
+Docker Compose
+
+Run the App
+docker-compose up --build
+
+## Swagger API Docs: 
+http://localhost:8000/swagger-ui/index.html
+
+## Frontend: 
+http://localhost:8080
 
 
